@@ -6,11 +6,14 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:33:43 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/04 17:15:14 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/04 17:21:37 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#ifndef LEMIN_H
+# define LEMIN_H
+# include "libft.h"
+# include <stdio.h>
 
 typedef struct	s_vertex
 {
@@ -30,3 +33,4 @@ typedef	struct	s_anthill
 }				t_anthill;
 
 char	*read_input(void);
+#endif

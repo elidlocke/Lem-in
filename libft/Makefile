@@ -6,7 +6,7 @@
 #    By: enennige <enennige@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 17:45:07 by enennige          #+#    #+#              #
-#    Updated: 2018/06/04 16:12:00 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/04 17:21:17 by jpollore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,13 @@ SRC_NAME	=	ft_memset.c \
 				ft_sort_bubble.c \
 				ft_sort_selection.c \
 				ft_sort_insertion.c \
-				ft_sort_merge.c
+				ft_sort_merge.c \
+				enqueue.c \
+				dequeue.c \
+				queue_iter.c \
+				queue_print.c \
+				queue_isempty.c \
+				ft_iarrappend.c
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_NAME))
 HEADER		=	./includes/
