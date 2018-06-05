@@ -6,7 +6,7 @@
 #    By: enennige <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/04 14:06:38 by enennige          #+#    #+#              #
-#    Updated: 2018/06/04 14:10:38 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/04 16:51:06 by enennige         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,18 @@ $(NAME):
 	$(CC) $(CFLAGS) $(OBJS) $(LIB_OPT) -o $(NAME)
 
 clean:
+	make clean -C $(LIB_NAME)/	
 	rm -f $(OBJS)
 
 fclean: clean
+	make fclean -C $(LIB_NAME)/	
 	rm -f $(NAME)
+
+re_local:
+	rm -f $(NAME)
+	rm -f $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCS) 
+	$(CC) $(CFLAGS) $(OBJS) $(LIB_OPT) -o $(NAME)
 
 build_test: clean_test
 	checkmk $(TEST_CHECK) > $(TEST_SRC)

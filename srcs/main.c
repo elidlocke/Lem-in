@@ -2,5 +2,5 @@
 
 int main(void)
 {
-printf("YO DAWG");
+	read_input();
 }
