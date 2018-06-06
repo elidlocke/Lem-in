@@ -6,7 +6,7 @@
 #    By: enennige <enennige@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 17:45:07 by enennige          #+#    #+#              #
-#    Updated: 2018/06/05 11:31:56 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/06 12:28:05 by enennige         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ SRC_NAME	=	ft_memset.c \
 				ft_lstdelone.c \
 				ft_lstdel.c \
 				ft_lstadd.c \
+				ft_lstaddend.c \
 				ft_lstiter.c \
 				ft_lstmap.c \
 				ft_lstrev.c \
