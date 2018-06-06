@@ -6,7 +6,7 @@
 #    By: enennige <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/04 14:06:38 by enennige          #+#    #+#              #
-#    Updated: 2018/06/04 16:51:06 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/05 17:13:15 by enennige         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = gcc
 NAME = lemin
 CFLAGS = -Wall -Wextra -Werror
 SRC_PATH = srcs/
-SRC_NAME = main.c graph.c search.c
+SRC_NAME = main.c read_input.c graph.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJS = $(patsubst %.c, %.o, $(SRC_NAME))
 LIB_NAME = libft
@@ -49,7 +49,7 @@ fclean: clean
 re_local:
 	rm -f $(NAME)
 	rm -f $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCS) 
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCS) -g
 	$(CC) $(CFLAGS) $(OBJS) $(LIB_OPT) -o $(NAME)
 
 build_test: clean_test

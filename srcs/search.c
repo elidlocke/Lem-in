@@ -1,23 +1,6 @@
 #include "lemin.h"
 #include <limits.h>
 
-typedef struct  s_vertex
-{
-    char    *node_name;
-    int     unique_idx;
-    int     parent_idx;
-    struct  s_vertex *next_vertex;
-}               t_vertex;
-
-typedef struct  s_anthill
-{
-    int num_ants;
-    int	num_vertices;
-    int start_idx;
-    int end_idx;
-    t_vertex    *vertex_arr;
-}               t_anthill;
-
 /* int	bfs(int *adj, int src, int dest, int num_vertices, int *pred, int *dist) */
 int	bfs(t_anthill *ah, int *pred, int *dist)
 {
