@@ -6,7 +6,7 @@
 #    By: enennige <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/04 14:06:38 by enennige          #+#    #+#              #
-#    Updated: 2018/06/06 12:09:52 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/06 17:00:55 by enennige         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ CC = gcc
 NAME = lemin
 CFLAGS = -Wall -Wextra -Werror
 SRC_PATH = srcs/
-SRC_NAME = main.c read_input.c build_anthill.c build_graph.c identify_linetype.c
+SRC_NAME = main.c read_input.c build_anthill.c identify_linetype.c
+SRC_NAME += build_roomlist.c build_adjlist.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJS = $(patsubst %.c, %.o, $(SRC_NAME))
 LIB_NAME = libft
@@ -46,11 +47,11 @@ fclean: clean
 	make fclean -C $(LIB_NAME)/	
 	rm -f $(NAME)
 
-re_local:
+re_example:
 	rm -f $(NAME)
 	rm -f $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCS) -g
-	$(CC) $(CFLAGS) $(OBJS) $(LIB_OPT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIB_OPT) -o $(NAME) -g
 
 build_test: clean_test
 	checkmk $(TEST_CHECK) > $(TEST_SRC)

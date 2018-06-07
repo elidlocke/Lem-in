@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 09:40:52 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/06 12:32:43 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/06 17:01:41 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ void	set_indices(t_list *input_lines, t_anthill *anthill)
 	{
 		line = (char *)current_node->content;
 		if (is_roomline(line))
-		{
-			printf("%d line: %s\n", index, line);
 			index++;
-		}
 		else if (ft_strcmp(line, "##start") == 0)
 			anthill->start_idx = index;
 		else if (ft_strcmp(line, "##end") == 0)
@@ -66,5 +63,6 @@ void	build_anthill(t_list *input_lines, t_anthill *anthill)
 	//TODO: rewrite to take **t_list and set the indexes
 	set_num_ants(input_lines, anthill);
 	set_indices(input_lines, anthill);
-	build_graph(input_lines, anthill);
+	build_roomlist(input_lines, anthill);
+	build_adjlist(input_lines, anthill);
 }

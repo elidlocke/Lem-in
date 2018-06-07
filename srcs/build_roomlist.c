@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_graph.c                                      :+:      :+:    :+:   */
+/*   build_roomlist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/06 11:44:23 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/06 12:32:36 by enennige         ###   ########.fr       */
+/*   Created: 2018/06/06 16:58:31 by enennige          #+#    #+#             */
+/*   Updated: 2018/06/06 17:03:23 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,16 @@ void	delete_room(t_room *room)
 	room = NULL;
 }
 
-
-/*
-void	add_tunnels(t_list *input_lines, t_list **graph)
-{
-	//look up the index, using the room name
-	// add an item to the back of the linked list
-}
-*/
-
-void    build_graph(t_list *input_lines, t_anthill *anthill)
+void    build_roomlist(t_list *input_lines, t_anthill *anthill)
 {
     (void)anthill;
 
-    t_list  **graph;
+    t_room	**rooms;
 	t_room	*room;
 	char	*line;
     int i;
 
-    graph = (t_list **)malloc(sizeof(*graph) * (anthill->num_rooms));
+    rooms = (t_room **)malloc(sizeof(*rooms) * (anthill->num_rooms));
     i = 0;
     while (i < anthill->num_rooms)
     {
@@ -66,12 +57,17 @@ void    build_graph(t_list *input_lines, t_anthill *anthill)
 		{
 			room = new_room((char *)input_lines->content, i);
 			//printf("room name: %s & index: %d\n", room->name, room->unique_idx);
-			graph[i] = ft_lstnew(room, sizeof(room));
-			delete_room(room);	
+			rooms[i] = room;
 			i++;
 		}
 		input_lines = input_lines->next;
     }
-    printf("arrray element: %d is %s", 6, ((t_room *)graph[6]->content)->name);
-	// now add the tunnels ! :O.
+	anthill->rooms = rooms;
+	/*
+	while (input_lines)
+	{
+		add_tunnels(input_lines, anthill);
+		input_lines = input_lines->next;
+	}
+	*/
 }
