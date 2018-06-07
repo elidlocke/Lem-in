@@ -42,5 +42,5 @@ int main(void)
 	delete_inputlines(&input_lines);
 	delete_roomlist(&anthill);
 	delete_adjlist(&anthill);
-	sleep(30);
+	//sleep(30);
 }

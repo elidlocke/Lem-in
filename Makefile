@@ -6,7 +6,7 @@
 #    By: enennige <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/04 14:06:38 by enennige          #+#    #+#              #
-#    Updated: 2018/06/06 17:00:55 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/07 14:49:47 by enennige         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ $(NAME):
 
 clean:
 	make clean -C $(LIB_NAME)/	
-	rm -f $(OBJS)
+	rm -rf obj/$(OBJS)
 
 fclean: clean
 	make fclean -C $(LIB_NAME)/	

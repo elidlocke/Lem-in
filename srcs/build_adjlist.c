@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 17:01:05 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/07 14:39:01 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/07 14:44:36 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void    add_tunnels(t_list *input_lines, t_anthill *anthill)
 	
 	line = (char *)input_lines->content;
     room_names = ft_strsplit(line, '-');
-	printf("[%s] to [%s]\n", room_names[0], room_names[1]);
+	//printf("[%s] to [%s]\n", room_names[0], room_names[1]);
 	room_from = lookup_room_index(room_names[0], anthill);
     room_to = lookup_room_index(room_names[1], anthill);
 	ft_strarrdel(room_names);
