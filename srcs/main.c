@@ -34,17 +34,13 @@ int main(void)
 	t_list		*input_lines;
 	t_anthill	anthill;
 
+	(void)anthill;
 	input_lines = read_input();
-	//ft_printlst(input_lines);
+	ft_printlst(input_lines);
 	//TODO: validate the input
 	build_anthill(input_lines, &anthill);
-	// TODO: Free the linked list input_lines
-	// TODO: Free each of the rooms
-	//printf("num lines in anthill: %d\n", anthill.num_ants);	
-	//printf("start index: %d\n", anthill.start_idx);	
-	//printf("end index: %d\n", anthill.end_idx);	
-	//printf("num rooms: %d\n", anthill.num_rooms);
-	//print_roomlist(anthill);
-	print_nodelist(anthill);
-	// TODO: Free each of the rooms
+	delete_inputlines(&input_lines);
+	delete_roomlist(&anthill);
+	delete_adjlist(&anthill);
+	sleep(30);
 }

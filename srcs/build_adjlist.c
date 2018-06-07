@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 17:01:05 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/06 21:18:30 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/07 14:39:01 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,54 @@ void    add_tunnels(t_list *input_lines, t_anthill *anthill)
     int     room_from;
     int     room_to;
 	t_list	*node;
-
-    room_names = ft_strsplit((char *)input_lines->content, '-');
-    room_from = lookup_room_index(room_names[0], anthill);
+	char	*line;
+	
+	line = (char *)input_lines->content;
+    room_names = ft_strsplit(line, '-');
+	printf("[%s] to [%s]\n", room_names[0], room_names[1]);
+	room_from = lookup_room_index(room_names[0], anthill);
     room_to = lookup_room_index(room_names[1], anthill);
-    // TODO: need to free the strings from strsplit!!
-    //printf("tunnel from: %d to %d\n", room_from, room_to);
+	ft_strarrdel(room_names);
 	node = ft_lstnew(&room_from, sizeof(room_from));
     ft_lstaddend(&(anthill->adj_list)[room_to], node);
 	node = ft_lstnew(&room_to, sizeof(room_to));
     ft_lstaddend(&(anthill->adj_list)[room_from], node);
 }
 
+void	delete_adjlist(t_anthill *anthill)
+{
+    int i;
+    t_list *node;
+	t_list *next;
+    i = 0;
+    while (i < anthill->num_rooms)
+    {
+        node = anthill->adj_list[i];
+        while (node)
+        {
+            next = node->next;
+            // v free integer inside of node!
+			free(node->content);
+			free(node);
+			node = next;
+        }
+        i++;
+    }
+}
+
 void	build_adjlist(t_list *input_lines, t_anthill *anthill)
 {
 	char	*line;
 	
+	(void)line;
+	(void)input_lines;
+	(void)anthill;
 	create_adjlist(anthill);
 	while (input_lines)
 	{
 		line = (char *)input_lines->content;
 		if (is_tunnelline(line))
-		{
 			add_tunnels(input_lines, anthill);
-		}
 		input_lines = input_lines->next;
 	}
 }

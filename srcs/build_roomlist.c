@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 16:58:31 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/06 20:04:44 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/07 09:54:16 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ void	delete_room(t_room *room)
 		free(room);
 	}
 	room = NULL;
+}
+
+void	delete_roomlist(t_anthill *anthill)
+{
+	int i;
+
+	if (anthill->rooms)
+	{
+		i = 0;
+		while (i < anthill->num_rooms)
+		{
+			delete_room(anthill->rooms[i]);
+			i++;
+		}
+	}
 }
 
 void    build_roomlist(t_list *input_lines, t_anthill *anthill)

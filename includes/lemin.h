@@ -6,13 +6,17 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:33:43 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/06 20:09:42 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/07 10:25:55 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIN_H
 # define LEMIN_H
 # include "libft.h"
+
+// FOR DEBUGGING
+# include <stdio.h>
+// END DEBUGGING
 
 typedef struct	s_room
 {
@@ -36,9 +40,12 @@ t_list		*read_input(void);
 int     is_roomline(char *line);
 int     is_tunnelline(char *line);
 
-/* maybe remove this stuff */
-# include <stdio.h>
 void    build_anthill(t_list *input_lines, t_anthill *anthill);
 void    build_roomlist(t_list *input_lines, t_anthill *anthill);
 void	build_adjlist(t_list *input_lines, t_anthill *anthill);
+
+void    delete_roomlist(t_anthill *anthill);
+void    delete_adjlist(t_anthill *anthill);
+void    delete_inputlines(t_list **input_lines);
+
 #endif
