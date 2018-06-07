@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 16:58:31 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/06 17:03:23 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/06 20:04:44 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,4 @@ void    build_roomlist(t_list *input_lines, t_anthill *anthill)
 		input_lines = input_lines->next;
     }
 	anthill->rooms = rooms;
-	/*
-	while (input_lines)
-	{
-		add_tunnels(input_lines, anthill);
-		input_lines = input_lines->next;
-	}
-	*/
 }
