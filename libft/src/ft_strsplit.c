@@ -6,7 +6,7 @@
 /*   By: enennige <enennige@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 18:36:03 by enennige          #+#    #+#             */
-/*   Updated: 2018/03/01 10:28:37 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/07 14:35:14 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,25 @@ static	void	ft_skipdelimeters(char **s, char c)
 	}
 }
 
+static char		**strsplit_helper(char *str_copy, char c,
+									char **arr_words, int num_words)
+{
+	char	*str_copy_head;
+	int		i;
+
+	str_copy_head = str_copy;
+	i = 0;
+	while (i < num_words)
+	{
+		ft_skipdelimeters(&str_copy, c);
+		if ((arr_words[i++] = ft_getword(str_copy, c)))
+			ft_gotonextword(&str_copy, c);
+	}
+	arr_words[i] = NULL;
+	ft_strdel(&str_copy_head);
+	return (arr_words);
+}
+
 /*
 ** The ft_strsplit() function allocates with malloc(3) and returns an array of
 ** fresh strings (all ending with '\0' including the array itself) obtained by
@@ -36,7 +55,6 @@ char			**ft_strsplit(char const *s, char c)
 	int		num_words;
 	char	**arr_words;
 	char	*str_copy;
-	int		i;
 
 	if (s)
 	{
@@ -45,14 +63,7 @@ char			**ft_strsplit(char const *s, char c)
 		{
 			if ((str_copy = ft_strdup(s)))
 			{
-				i = 0;
-				while (i < num_words)
-				{
-					ft_skipdelimeters(&str_copy, c);
-					if ((arr_words[i++] = ft_getword(str_copy, c)))
-						ft_gotonextword(&str_copy, c);
-				}
-				arr_words[i] = NULL;
+				arr_words = strsplit_helper(str_copy, c, arr_words, num_words);
 				return (arr_words);
 			}
 		}

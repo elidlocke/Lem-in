@@ -6,7 +6,7 @@
 #    By: enennige <enennige@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 17:45:07 by enennige          #+#    #+#              #
-#    Updated: 2018/06/06 12:28:05 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/07 09:33:41 by enennige         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC_NAME	=	ft_memset.c \
 				ft_memdel.c \
 				ft_strnew.c \
 				ft_strdel.c \
+				ft_strarrdel.c \
 				ft_strclr.c \
 				ft_striter.c \
 				ft_striteri.c \
