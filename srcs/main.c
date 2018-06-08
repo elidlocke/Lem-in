@@ -126,12 +126,12 @@ int main(void)
 		if (build_anthill(input_lines, &anthill) != -1)
 		{
 			//print_roomlist(anthill);
-			print_nodelist(anthill);
+			//print_nodelist(anthill);
+			ft_putstr("FINDING PATH\n");
+			solve(&anthill);
 			delete_inputlines(&input_lines);
 			delete_roomlist(&anthill);
 			delete_adjlist(&anthill);
-			ft_putstr("FINDING PATH\n");
-			solve(&anthill);
 			return (0);
 		}
 	}
