@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 16:58:31 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/07 09:54:16 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/08 15:39:01 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,32 @@ void	delete_roomlist(t_anthill *anthill)
 	}
 }
 
+int		is_valid_roomlist(char **room_names, int num_rooms)
+{
+    int i;
+
+	ft_strsort_merge(room_names, num_rooms);
+    i = 1;
+    while (i < num_rooms)
+    {
+        if (ft_strcmp(room_names[i], room_names[i - 1]) == 0)
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
 void    build_roomlist(t_list *input_lines, t_anthill *anthill)
 {
-    (void)anthill;
-
     t_room	**rooms;
 	t_room	*room;
+	char	**room_names;
 	char	*line;
     int i;
 
     rooms = (t_room **)malloc(sizeof(*rooms) * (anthill->num_rooms));
+    room_names = (char **)malloc(sizeof(char *) * (anthill->num_rooms) + 1);
+	room_names[anthill->num_rooms + 1] = NULL;
     i = 0;
     while (i < anthill->num_rooms)
     {
@@ -71,11 +87,14 @@ void    build_roomlist(t_list *input_lines, t_anthill *anthill)
 		if (is_roomline(line))
 		{
 			room = new_room((char *)input_lines->content, i);
-			//printf("room name: %s & index: %d\n", room->name, room->unique_idx);
 			rooms[i] = room;
+			room_names[i] = ft_strdup(room->name);
 			i++;
 		}
 		input_lines = input_lines->next;
     }
-	anthill->rooms = rooms;
+	if (is_valid_roomlist(room_names, anthill->num_rooms))
+		anthill->rooms = rooms;
+	else
+		anthill->is_valid = 0;
 }

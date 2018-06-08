@@ -6,7 +6,7 @@
 #    By: enennige <enennige@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 17:45:07 by enennige          #+#    #+#              #
-#    Updated: 2018/06/07 09:33:41 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/08 15:07:02 by enennige         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,7 @@ SRC_NAME	=	ft_memset.c \
 				ft_sort_selection.c \
 				ft_sort_insertion.c \
 				ft_sort_merge.c \
+				ft_strsort_merge.c \
 				enqueue.c \
 				dequeue.c \
 				queue_iter.c \

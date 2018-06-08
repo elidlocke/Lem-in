@@ -6,7 +6,7 @@
 /*   By: enennige <enennige@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 14:58:39 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/07 09:40:46 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/08 15:07:34 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void				ft_sort_bubble(int *nums, int len);
 void				ft_sort_insertion(int *nums, int len);
 void				ft_sort_selection(int *nums, int len);
 void				ft_sort_merge(int *nums, int len);
+void				ft_strsort_merge(char **str, int len);
 
 typedef struct		s_queue
 {
