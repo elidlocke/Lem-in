@@ -37,6 +37,12 @@ typedef	struct	s_anthill
 	int			is_valid;
 }				t_anthill;
 
+typedef struct s_route
+{
+	int			*path;
+	int			cost;
+}				t_route;
+
 t_list		*read_input(void);
 
 int     is_antcount(char *line);
@@ -53,4 +59,5 @@ void    delete_roomlist(t_anthill *anthill);
 void    delete_adjlist(t_anthill *anthill);
 void    delete_inputlines(t_list **input_lines);
 
+int	bfs(t_anthill *ah, int *pred, int *dist, int *ignore, size_t ignore_size);
 #endif

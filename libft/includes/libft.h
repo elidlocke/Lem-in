@@ -6,7 +6,7 @@
 /*   By: enennige <enennige@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 14:58:39 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/08 15:07:34 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/08 16:18:13 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,6 @@ void				queue_iter(t_queue *current, void (*applyf)(void *));
 void				queue_print(t_queue *current, void (*displayf)(void *));
 
 int					*ft_iarrappend(int *arr, size_t len, int data);
+void				ft_iarriter(int *arr, size_t len, void (*f)(int));
+int					ft_iarrhas(int *arr, size_t len, int data);
 #endif
