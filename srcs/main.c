@@ -39,6 +39,8 @@ int main(void)
 	ft_printlst(input_lines);
 	//TODO: validate the input
 	build_anthill(input_lines, &anthill);
+	print_roomlist(anthill);
+	print_nodelist(anthill);
 	delete_inputlines(&input_lines);
 	delete_roomlist(&anthill);
 	delete_adjlist(&anthill);

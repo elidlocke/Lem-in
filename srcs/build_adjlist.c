@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 17:01:05 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/07 14:44:36 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/07 19:30:03 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,6 @@ void	build_adjlist(t_list *input_lines, t_anthill *anthill)
 {
 	char	*line;
 	
-	(void)line;
-	(void)input_lines;
-	(void)anthill;
 	create_adjlist(anthill);
 	while (input_lines)
 	{

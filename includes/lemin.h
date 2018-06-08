@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:33:43 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/07 10:25:55 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/07 19:16:07 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef	struct	s_anthill
 	int			num_rooms;
 	t_room		**rooms;
 	t_list		**adj_list;
+	t_list		**ant_routes;
 }				t_anthill;
 
 t_list		*read_input(void);
