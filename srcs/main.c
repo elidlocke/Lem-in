@@ -77,7 +77,7 @@ t_route	*create_route(int path_cost)
 	return (route);
 }
 
-void	solve(t_anthill *anthill)
+int	solve(t_anthill *anthill)
 {
 	int		*pred;
 	int		*dist;
@@ -113,6 +113,7 @@ void	solve(t_anthill *anthill)
 	i = 0;
 	while (i < iter)
 		print_route(anthill, routes[i++]);
+	return (!iter ? 0 : 1);
 }
 
 int main(void)
@@ -128,7 +129,8 @@ int main(void)
 			//print_roomlist(anthill);
 			//print_nodelist(anthill);
 			ft_putstr("FINDING PATH\n");
-			solve(&anthill);
+			if (!(solve(&anthill)))
+				ft_putstr("ERROR\n");
 			delete_inputlines(&input_lines);
 			delete_roomlist(&anthill);
 			delete_adjlist(&anthill);
