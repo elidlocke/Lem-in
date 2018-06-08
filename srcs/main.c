@@ -33,6 +33,9 @@ int main(void)
 {
 	t_list		*input_lines;
 	t_anthill	anthill;
+	int		*pred;
+	int		*dist;
+	int		i;
 
 	(void)anthill;
 	input_lines = read_input();
@@ -41,8 +44,27 @@ int main(void)
 	build_anthill(input_lines, &anthill);
 	print_roomlist(anthill);
 	print_nodelist(anthill);
+
+	pred = (int *)ft_memalloc(sizeof(*pred) * anthill.num_rooms);
+	dist = (int *)ft_memalloc(sizeof(*dist) * anthill.num_rooms);
+	if (!(bfs(&anthill, pred, dist)))
+		ft_putstr("No path found.\n");
+	else
+	{
+		i = anthill.end_idx;
+		while (i != -1)
+		{
+			ft_putstr(anthill.rooms[i]->name);
+			ft_putchar('(');
+			ft_putnbr(i);
+			ft_putchar(')');
+			ft_putstr(" <- ");
+			i = pred[i];
+		}
+	}
+
+
 	delete_inputlines(&input_lines);
 	delete_roomlist(&anthill);
 	delete_adjlist(&anthill);
-	//sleep(30);
 }

@@ -49,4 +49,5 @@ void    delete_roomlist(t_anthill *anthill);
 void    delete_adjlist(t_anthill *anthill);
 void    delete_inputlines(t_list **input_lines);
 
+int	bfs(t_anthill *ah, int *pred, int *dist);
 #endif

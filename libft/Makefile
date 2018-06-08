@@ -97,7 +97,8 @@ SRC_NAME	=	ft_memset.c \
 				queue_iter.c \
 				queue_print.c \
 				queue_isempty.c \
-				ft_iarrappend.c
+				ft_iarrappend.c \
+				ft_iarriter.c
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_NAME))
 HEADER		=	./includes/
