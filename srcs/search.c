@@ -1,7 +1,13 @@
 #include "lemin.h"
 #include <limits.h>
 
-int	bfs(t_anthill *ah, int *pred, int *dist)
+void	display_room(void *idx)
+{
+	ft_putnbr(*(int *)idx);
+	ft_putchar(' ');
+}
+
+int	bfs(t_anthill *ah, int *pred, int *dist, int *ignore, size_t ignore_size)
 {
 	t_queue	*frontier_h;
 	t_queue	*frontier_t;
@@ -16,7 +22,10 @@ int	bfs(t_anthill *ah, int *pred, int *dist)
 	i = 0;
 	while (i < ah->num_rooms)
 	{
-		explored[i] = 0;
+		if (ignore_size && ft_iarrhas(ignore, ignore_size, i))
+			explored[i] = 1;
+		else
+			explored[i] = 0;
 		dist[i] = INT_MAX;
 		pred[i] = -1;
 		i++;
@@ -37,7 +46,7 @@ int	bfs(t_anthill *ah, int *pred, int *dist)
 		while (vertex)
 		{
 			i = *((int *)vertex->content);
-			if (explored[i] == 0)
+			if (!explored[i])
 			{
 				explored[i] = 1;
 				dist[i] = dist[parent_idx] + 1;
@@ -45,7 +54,7 @@ int	bfs(t_anthill *ah, int *pred, int *dist)
 
 				if (i == ah->end_idx)
 					return (1);
-				enqueue(&frontier_h, &frontier_t, &i);
+				enqueue(&frontier_h, &frontier_t, (int *)vertex->content);
 			}
 			vertex = vertex->next;
 		}

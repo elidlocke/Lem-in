@@ -125,4 +125,5 @@ void				queue_print(t_queue *current, void (*displayf)(void *));
 
 int					*ft_iarrappend(int *arr, size_t len, int data);
 void					ft_iarriter(int *arr, size_t len, void (*f)(int));
+int					ft_iarrhas(int *arr, size_t len, int data);
 #endif
