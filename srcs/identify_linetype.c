@@ -6,9 +6,27 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 11:59:44 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/06 12:11:24 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/08 11:29:26 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "lemin.h"
+
+/*
+** Check if a line contains the number of ants and nothing else
+*/
+int		is_antcount(char *line)
+{
+	while (*line)
+	{
+		if (ft_isdigit(*line))
+			line++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
 
 /*
 ** Check if an input line is a valid room
@@ -17,13 +35,23 @@
 int     is_roomline(char *line)
 {
     int space_count;
+	int	word_flag;
 
     space_count = 0;
+	word_flag = 0;
     while (*line)
     {
         if (*line == ' ')
-            space_count++;
-        line++;
+		{
+            word_flag = 1;
+			space_count++;
+		}
+		else if (word_flag && !(ft_isdigit(*line)))
+		{
+			printf("line: %s, %d\n", line, ft_isdigit(*line));
+			return (0);
+		}
+		line++;
     }
     if (space_count == 2)
         return (1);

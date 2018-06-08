@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/07 19:42:46 by enennige          #+#    #+#             */
+/*   Updated: 2018/06/08 11:42:55 by enennige         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lemin.h"
 
 void	print_roomlist(t_anthill anthill)
@@ -34,15 +46,20 @@ int main(void)
 	t_list		*input_lines;
 	t_anthill	anthill;
 
-	(void)anthill;
 	input_lines = read_input();
-	ft_printlst(input_lines);
-	//TODO: validate the input
-	build_anthill(input_lines, &anthill);
-	print_roomlist(anthill);
-	print_nodelist(anthill);
-	delete_inputlines(&input_lines);
-	delete_roomlist(&anthill);
-	delete_adjlist(&anthill);
-	//sleep(30);
+	if (validate_input_lines(input_lines) != -1)
+	{
+		if (build_anthill(input_lines, &anthill) != -1)
+		{
+			//print_roomlist(anthill);
+			print_nodelist(anthill);
+			delete_inputlines(&input_lines);
+			delete_roomlist(&anthill);
+			delete_adjlist(&anthill);
+			ft_putstr("FINDING PATH\n");
+			return (0);
+		}
+	}
+	ft_putstr("ERROR\n");
+	return (-1);
 }

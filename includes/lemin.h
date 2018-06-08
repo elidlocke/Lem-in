@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:33:43 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/07 19:16:07 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/08 11:15:52 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,18 @@ typedef	struct	s_anthill
 	t_room		**rooms;
 	t_list		**adj_list;
 	t_list		**ant_routes;
+	int			is_valid;
 }				t_anthill;
 
 t_list		*read_input(void);
 
+int     is_antcount(char *line);
 int     is_roomline(char *line);
 int     is_tunnelline(char *line);
 
-void    build_anthill(t_list *input_lines, t_anthill *anthill);
+int     validate_input_lines(t_list *input_lines);
+
+int		build_anthill(t_list *input_lines, t_anthill *anthill);
 void    build_roomlist(t_list *input_lines, t_anthill *anthill);
 void	build_adjlist(t_list *input_lines, t_anthill *anthill);
 
