@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 15:27:08 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/08 15:10:03 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 12:15:24 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,25 @@ int		validate_input_lines(t_list *input_lines)
 	int		i;
 	int		started_tunnels;
 
-	if (!input_lines)
-		return (-1);
 	i = 0;
 	started_tunnels = 0;
 	while (input_lines)
 	{
 		line = (char *)input_lines->content;
+		if (line[0] == '#')
+		{
+			input_lines = input_lines->next;
+			continue ;
+		}
 		if (i == 0 && !(is_antcount(line)))
 			return (-1);
 		if (i > 0 && is_tunnelline(line))
 			started_tunnels = 1;
 		if (i > 0 && started_tunnels == 0 &&
-			!(is_roomline(line)) && line[0] != '#')
+			!(is_roomline(line)))
 			return (-1);
 		if (i > 0 && started_tunnels == 1 &&
-			!(is_tunnelline(line)) && line[0] != '#')
+			!(is_tunnelline(line)))
 			return (-1);
 		input_lines = input_lines->next;
 		i++;

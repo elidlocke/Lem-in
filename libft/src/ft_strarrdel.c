@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 09:32:53 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/07 11:13:34 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/08 20:08:34 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	ft_strarrdel(char **str_arr)
 	if (str_arr)
 	{
 		i = 0;
-		while (str_arr[i])
+		while (str_arr[i] != NULL)
 		{
 			ft_strdel(&(str_arr[i]));
 			i++;
 		}
+		free(str_arr);
+		str_arr = NULL;
 	}
-	free(str_arr);
-	str_arr = NULL;
 }

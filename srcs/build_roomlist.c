@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 16:58:31 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/08 15:39:01 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 11:39:00 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,29 +72,31 @@ int		is_valid_roomlist(char **room_names, int num_rooms)
 void    build_roomlist(t_list *input_lines, t_anthill *anthill)
 {
     t_room	**rooms;
-	t_room	*room;
 	char	**room_names;
 	char	*line;
     int i;
 
-    rooms = (t_room **)malloc(sizeof(*rooms) * (anthill->num_rooms));
-    room_names = (char **)malloc(sizeof(char *) * (anthill->num_rooms) + 1);
-	room_names[anthill->num_rooms + 1] = NULL;
+    if (!(rooms = (t_room **)malloc(sizeof(*rooms) * (anthill->num_rooms))))
+		return ;
+    if (!(room_names = (char **)malloc(sizeof(char *) *
+		(anthill->num_rooms) + 1)))
+			return ;
     i = 0;
     while (i < anthill->num_rooms)
     {
 		line = (char *)input_lines->content;
 		if (is_roomline(line))
 		{
-			room = new_room((char *)input_lines->content, i);
-			rooms[i] = room;
-			room_names[i] = ft_strdup(room->name);
+			rooms[i] = new_room((char *)input_lines->content, i);
+			room_names[i] = ft_strdup(rooms[i]->name);
 			i++;
 		}
 		input_lines = input_lines->next;
     }
+	room_names[i] = NULL;
 	if (is_valid_roomlist(room_names, anthill->num_rooms))
 		anthill->rooms = rooms;
 	else
 		anthill->is_valid = 0;
+	ft_strarrdel(room_names);
 }

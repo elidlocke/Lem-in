@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 09:40:52 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/08 15:38:17 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 12:16:40 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ void	set_num_ants(t_list *input_lines, t_anthill *anthill)
 {
     char	*line;
 	int		num_ants;
-
 	line = (char *)input_lines->content;
+	while (line[0] == '#')
+	{
+		input_lines = input_lines->next;
+		line = (char *)input_lines->content;
+	}
 	num_ants = ft_atoi(line);
 	if (num_ants > 0)
 		anthill->num_ants = num_ants;
@@ -110,6 +114,8 @@ int	build_anthill(t_list *input_lines, t_anthill *anthill)
 		if (anthill->is_valid == 0)
 			return (-1);
 		build_adjlist(input_lines, anthill);
+		if (anthill->is_valid == 0)
+			return (-1);
 		return (0);
 	}
 	return (-1);

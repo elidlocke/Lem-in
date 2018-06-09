@@ -6,12 +6,11 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 13:59:25 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/08 15:08:51 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 11:36:32 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 static void	merge(char **str, int start, int mid, int end)
 {
 	int		i_copy;
@@ -19,17 +18,15 @@ static void	merge(char **str, int start, int mid, int end)
 	int		i_right;
 	char	**copy;
 	
-	copy = (char **)malloc(sizeof(char *) * (end - start + 1));
-
+	if (!(copy = (char **)malloc(sizeof(char *) * (end - start + 1))))
+		return ;
 	i_copy = 0;
 	i_left = start;
 	i_right = mid + 1;
 	while (i_left <= mid && i_right <= end)
 	{
 		if(ft_strcmp(str[i_right], str[i_left]) > 0)
-		{
 			copy[i_copy++] = str[i_left++];
-		}
 		else
 			copy[i_copy++] = str[i_right++];
 	}
@@ -43,6 +40,8 @@ static void	merge(char **str, int start, int mid, int end)
 		str[start + i_copy] = copy[i_copy];
 		i_copy++;
 	}
+	if (copy)
+		free(copy);
 }
 
 static void	merge_sort_recursion(char **str, int start, int end)
