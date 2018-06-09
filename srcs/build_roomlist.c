@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 16:58:31 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/08 20:47:25 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 11:39:00 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void    build_roomlist(t_list *input_lines, t_anthill *anthill)
 		{
 			rooms[i] = new_room((char *)input_lines->content, i);
 			room_names[i] = ft_strdup(rooms[i]->name);
-			printf("room strduped: %s\n", room_names[i]);
 			i++;
 		}
 		input_lines = input_lines->next;

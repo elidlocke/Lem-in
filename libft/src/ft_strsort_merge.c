@@ -6,12 +6,11 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 13:59:25 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/08 20:29:38 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 11:36:32 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 static void	merge(char **str, int start, int mid, int end)
 {
 	int		i_copy;

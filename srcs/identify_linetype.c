@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 11:59:44 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/08 11:29:26 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 11:38:35 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ int     is_roomline(char *line)
 			space_count++;
 		}
 		else if (word_flag && !(ft_isdigit(*line)))
-		{
-			printf("line: %s, %d\n", line, ft_isdigit(*line));
 			return (0);
-		}
 		line++;
     }
     if (space_count == 2)

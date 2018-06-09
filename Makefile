@@ -6,7 +6,7 @@
 #    By: enennige <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/04 14:06:38 by enennige          #+#    #+#              #
-#    Updated: 2018/06/08 16:19:13 by jpollore         ###   ########.fr        #
+#    Updated: 2018/06/09 12:21:20 by enennige         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = lemin
 CFLAGS = -Wall -Wextra -Werror
 SRC_PATH = srcs/
 SRC_NAME = main.c read_input.c build_anthill.c identify_linetype.c
-SRC_NAME += build_roomlist.c build_adjlist.c validate_input.c search.c
+SRC_NAME += build_roomlist.c build_adjlist.c search.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJS = $(patsubst %.c, %.o, $(SRC_NAME))
 LIB_NAME = libft

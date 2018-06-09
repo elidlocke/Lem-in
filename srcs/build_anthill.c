@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 09:40:52 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/08 20:58:01 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 12:16:40 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ int	build_anthill(t_list *input_lines, t_anthill *anthill)
 		if (anthill->is_valid == 0)
 			return (-1);
 		build_adjlist(input_lines, anthill);
+		if (anthill->is_valid == 0)
+			return (-1);
 		return (0);
 	}
 	return (-1);
