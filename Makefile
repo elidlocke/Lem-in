@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 SRC_PATH = srcs/
 SRC_NAME = main.c read_input.c build_anthill.c identify_linetype.c
 SRC_NAME += build_roomlist.c build_adjlist.c validate_input.c search.c
+SRC_NAME += solve.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJS = $(patsubst %.c, %.o, $(SRC_NAME))
 LIB_NAME = libft
