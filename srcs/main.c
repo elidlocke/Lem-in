@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 19:42:46 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/08 16:17:41 by jpollore         ###   ########.fr       */
+/*   Updated: 2018/06/08 20:52:39 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,18 +124,21 @@ int main(void)
 	input_lines = read_input();
 	if (validate_input_lines(input_lines) != -1)
 	{
-		if (build_anthill(input_lines, &anthill) != -1)
-		{
-			//print_roomlist(anthill);
-			//print_nodelist(anthill);
-			ft_putstr("FINDING PATH\n");
-			if (!(solve(&anthill)))
-				ft_putstr("ERROR\n");
-			delete_inputlines(&input_lines);
-			delete_roomlist(&anthill);
-			delete_adjlist(&anthill);
-			return (0);
-		}
+		//if (build_anthill(input_lines, &anthill) != -1)
+		//{
+		//print_roomlist(anthill);
+		//print_nodelist(anthill);
+		ft_putstr("FINDING PATH\n");
+		/*
+		if (!(solve(&anthill)))
+			ft_putstr("ERROR\n");
+		*/
+		delete_inputlines(&input_lines);
+		delete_roomlist(&anthill);
+		delete_adjlist(&anthill);
+		//sleep(20);
+		return (0);
+		//}
 	}
 	ft_putstr("ERROR\n");
 	return (-1);
