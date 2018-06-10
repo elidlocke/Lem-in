@@ -6,7 +6,7 @@
 #    By: enennige <enennige@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 17:45:07 by enennige          #+#    #+#              #
-#    Updated: 2018/06/08 15:07:02 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/09 20:29:52 by jpollore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,6 +106,10 @@ SRC			=	$(addprefix $(SRC_PATH), $(SRC_NAME))
 HEADER		=	./includes/
 CFLAGS		=	-Wall -Wextra -Werror
 NAME		=	libft.a
+
+ifeq ($(CDEBUG), 1)
+	CFLAGS += -g
+endif
 
 all:	$(NAME)
 

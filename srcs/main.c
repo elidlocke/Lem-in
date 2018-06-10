@@ -72,9 +72,8 @@ int		main(void)
 	t_list		*input_lines;
 	t_anthill	anthill;
 
-	input_lines = read_input();
-	/* ft_printlst(input_lines); */
-	if (validate_input_lines(input_lines) != -1)
+	if ((input_lines = read_input()) &&
+			validate_input_lines(input_lines) != -1)
 	{
 		if (build_anthill(input_lines, &anthill) != -1)
 		{

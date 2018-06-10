@@ -100,7 +100,11 @@ void			free_routes(t_route **arr, int size)
 	int i;
 
 	if (!size)
+	{
+		free(arr);
+		arr = NULL;
 		return ;
+	}
 	i = 0;
 	while (i < size)
 	{

@@ -76,13 +76,14 @@ int		validate_input_lines(t_list *input_lines)
 
 t_list	*read_input(void)
 {
+	int	ret;
 	char	*line;
 	t_list	*lst;
 	t_list	*node;
 
 	line = NULL;
 	lst = NULL;
-	while (ft_getnextline(0, &line) > 0)
+	while ((ret = ft_getnextline(0, &line)) > 0)
 	{
 		node = ft_lstnew(line, ft_strlen(line) + 1);
 		if (lst == NULL)

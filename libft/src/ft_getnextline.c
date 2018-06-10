@@ -23,6 +23,8 @@ static int	strlen_until(char *line, char c)
 	int i;
 
 	i = 0;
+	if (!line)
+		return (0);
 	while (line[i] != c && line[i] != '\0')
 		i++;
 	return (i);
@@ -72,7 +74,8 @@ int			ft_getnextline(const int fd, char **line)
 	}
 	if (ret == -1)
 		return (-1);
-	len = strlen_until(file[fd].reader, '\n');
+	if (!(len = strlen_until(file[fd].reader, '\n')))
+		return (-1);
 	if (!(*line = ft_strndup(file[fd].reader, len)))
 		return (-1);
 	if (*(file[fd].reader) == '\0')
