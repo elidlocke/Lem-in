@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 16:58:31 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 17:35:03 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 20:21:28 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_room	*new_room(char *line, int index)
 
 void	delete_roomlist(t_anthill *anthill)
 {
-	int	i;
-	t_room *room;
+	int		i;
+	t_room	*room;
 
 	if (anthill->rooms)
 	{
@@ -60,6 +60,11 @@ void	delete_roomlist(t_anthill *anthill)
 	}
 }
 
+/*
+** Sorts a list of rooms and checks if there are any duplicate names
+** in the list. Returns 1 if valid, 0 if duplicates are found.
+*/
+
 int		is_valid_roomlist(char **room_names, int num_rooms)
 {
 	int	i;
@@ -74,6 +79,24 @@ int		is_valid_roomlist(char **room_names, int num_rooms)
 	}
 	return (1);
 }
+
+/*
+** Takes the result of building the rooms out, validates it and saves the
+** right information back into the anthill struct
+*/
+
+void	set_room_data(t_anthill *anthill, char **room_names, t_room **rooms)
+{
+	room_names[anthill->num_rooms] = NULL;
+	if (!(is_valid_roomlist(room_names, anthill->num_rooms)))
+		anthill->is_valid = 0;
+	anthill->rooms = rooms;
+	ft_strarrdel(room_names);
+}
+
+/*
+** Builds out a list of rooms and saves them into the anthill
+*/
 
 void	build_roomlist(t_list *input_lines, t_anthill *anthill)
 {
@@ -99,10 +122,5 @@ void	build_roomlist(t_list *input_lines, t_anthill *anthill)
 		}
 		input_lines = input_lines->next;
 	}
-	room_names[i] = NULL;
-	if (is_valid_roomlist(room_names, anthill->num_rooms))
-		anthill->rooms = rooms;
-	else
-		anthill->is_valid = 0;
-	ft_strarrdel(room_names);
+	set_room_data(anthill, room_names, rooms);
 }
