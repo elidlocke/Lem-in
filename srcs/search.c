@@ -6,7 +6,7 @@
 /*   By: jpollore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 14:10:45 by jpollore          #+#    #+#             */
-/*   Updated: 2018/06/09 16:26:01 by jpollore         ###   ########.fr       */
+/*   Updated: 2018/06/09 17:32:47 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,46 @@ static t_list	*get_vrtx(t_anthill *ah, t_queue **frontier_h,
 	return (ah->adj_list[idx[0]]);
 }
 
+static int		explr(int *explored, t_search *info, t_list *vx, int *idx)
+{
+	explored[*(int *)vx->content] = 1;
+	info->dist[*(int *)vx->content] = info->dist[idx[1]] + 1;
+	info->pred[*(int *)vx->content] = idx[0];
+	return (1);
+}
+
+static	void	free_ex_queue(int **ex, t_queue **head, t_queue **tail)
+{
+	free(*ex);
+	while (!queue_isempty(head))
+		dequeue(head, tail);
+}
+
 int				bfs(t_anthill *ah, t_search *info, t_route *ignore)
 {
-	t_queue	*frntr_h;
-	t_queue	*frntr_t;
-	t_list	*vrtx;
+	t_queue	*head;
+	t_queue	*tail;
+	t_list	*vx;
 	int		idx[2];
-	int		*explored;
+	int		*ex;
 
-	if (!(explored = bfs_init(ah, info, ignore)))
+	if (!(ex = bfs_init(ah, info, ignore)))
 		return (0);
-	frntr_h = NULL;
-	frntr_t = NULL;
-	enqueue(&frntr_h, &frntr_t, &ah->start_idx);
-	while (!queue_isempty(&frntr_h) &&
-			(vrtx = get_vrtx(ah, &frntr_h, &frntr_t, idx)))
-		while ((vrtx = vrtx->next))
+	head = NULL;
+	tail = NULL;
+	enqueue(&head, &tail, &ah->start_idx);
+	while (!queue_isempty(&head) && (vx = get_vrtx(ah, &head, &tail, idx)))
+		while ((vx = vx->next))
 		{
-			if (explored[*(int *)vrtx->content])
+			if (ex[*(int *)vx->content])
 				continue;
-			explored[*(int *)vrtx->content] = 1;
-			info->dist[*(int *)vrtx->content] = info->dist[idx[1]] + 1;
-			info->pred[*(int *)vrtx->content] = idx[0];
-			if (*(int *)vrtx->content == ah->end_idx)
+			if (explr(ex, info, vx, idx) && *(int *)vx->content == ah->end_idx)
+			{
+				free_ex_queue(&ex, &head, &tail);
 				return (1);
-			enqueue(&frntr_h, &frntr_t, (int *)vrtx->content);
+			}
+			enqueue(&head, &tail, (int *)vx->content);
 		}
+	free_ex_queue(&ex, &head, &tail);
 	return (0);
 }

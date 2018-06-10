@@ -53,6 +53,7 @@ static int		search_iter(t_anthill *anthill, t_route **route,
 {
 	int	i;
 	int	path_cost;
+	int	*tmp_path;
 
 	if (!(bfs(anthill, info, ignore)))
 		return (0);
@@ -63,7 +64,12 @@ static int		search_iter(t_anthill *anthill, t_route **route,
 	{
 		(*route)->path[path_cost--] = i;
 		if (i != anthill->end_idx && i != anthill->start_idx)
-			ignore->path = ft_iarrappend(ignore->path, ignore->cost++, i);
+		{
+			tmp_path = ignore->path;
+			ignore->path = ft_iarrappend(tmp_path, ignore->cost++, i);
+			free(tmp_path);
+			tmp_path = NULL;
+		}
 		i = info->pred[i];
 	}
 	return (1);
@@ -83,7 +89,28 @@ static t_route	**search(t_anthill *anthill, int *iter)
 	while (*iter < anthill->num_ants &&
 			search_iter(anthill, &routes[*iter], &info, &ignore))
 		(*iter)++;
+	free(info.pred);
+	free(info.dist);
+	free(ignore.path);
 	return (routes);
+}
+
+void	free_routes(t_route **arr, int size)
+{
+	int i;
+
+	if (!size)
+		return ;
+	i = 0;
+	while (i < size)
+	{
+		free(arr[i]->path);
+		free(arr[i]);
+		arr[i] = NULL;
+		i++;
+	}
+	free(arr);
+	arr = NULL;
 }
 
 int				solve(t_anthill *anthill)
@@ -97,5 +124,6 @@ int				solve(t_anthill *anthill)
 	i = 0;
 	while (i < iter)
 		print_route(anthill, routes[i++]);
+	free_routes(routes, iter);
 	return (!iter ? 0 : 1);
 }
