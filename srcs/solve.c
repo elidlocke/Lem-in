@@ -6,7 +6,7 @@
 /*   By: jpollore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 14:11:17 by jpollore          #+#    #+#             */
-/*   Updated: 2018/06/09 20:05:30 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 20:16:18 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static t_route	**search(t_anthill *anthill, int *iter)
 	return (routes);
 }
 
-void	free_routes(t_route **arr, int size)
+void			free_routes(t_route **arr, int size)
 {
 	int i;
 

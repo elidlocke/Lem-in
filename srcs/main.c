@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 19:42:46 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 20:02:01 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 20:13:13 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	print_roomlist(t_anthill anthill)
 {
 	int i;
+
 	i = 0;
 	while (i < anthill.num_rooms)
 	{
@@ -25,8 +26,9 @@ void	print_roomlist(t_anthill anthill)
 
 void	print_nodelist(t_anthill anthill)
 {
-	int i;
-	t_list *node;
+	int		i;
+	t_list	*node;
+
 	i = 0;
 	while (i < anthill.num_rooms)
 	{
@@ -65,26 +67,25 @@ void	print_route(t_anthill *anthill, t_route *route)
 	ft_putstr("]\n");
 }
 
-int main(void)
+int		main(void)
 {
 	t_list		*input_lines;
 	t_anthill	anthill;
 
 	input_lines = read_input();
-	//ft_printlst(input_lines);
+	/* ft_printlst(input_lines); */
 	if (validate_input_lines(input_lines) != -1)
 	{
 		if (build_anthill(input_lines, &anthill) != -1)
 		{
-			//print_roomlist(anthill);
-			//print_nodelist(anthill);
-			//ft_putstr("FINDING PATH\n");
+			/* print_roomlist(anthill); */
+			/* print_nodelist(anthill); */
+			/* ft_putstr("FINDING PATH\n"); */
 			if (!(solve(&anthill)))
 				ft_putstr("ERROR\n");
 			delete_inputlines(&input_lines);
 			delete_roomlist(&anthill);
 			delete_adjlist(&anthill);
-			//sleep(20);
 			return (0);
 		}
 	}

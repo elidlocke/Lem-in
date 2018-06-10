@@ -6,13 +6,14 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 13:41:36 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 17:03:01 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 20:14:56 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
 /* TODO: DELETE THIS FUNCTION */
+
 void    print_path(t_anthill *anthill, int *path)
 {
 	int i;
@@ -75,8 +76,8 @@ int		get_shortest_route_index(t_route **routes, int num_routes)
 void	find_routes(t_anthill *anthill, t_route **routes, int num_routes)
 {
 	int		i;
-	t_ant	ants[anthill->num_ants];
 	int		route_idx;
+	t_ant	ants[anthill->num_ants];
 
 	i = 0;
 	init_ants_on_route(routes, num_routes);
@@ -95,4 +96,3 @@ void	find_routes(t_anthill *anthill, t_route **routes, int num_routes)
 		i++;
 	}
 }
-
