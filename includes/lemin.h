@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:33:43 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 11:39:16 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 16:50:49 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define LEMIN_H
 # include "libft.h"
 
-// FOR DEBUGGING
-# include <stdio.h>
-// END DEBUGGING
 
 typedef struct	s_room
 {
@@ -41,7 +38,15 @@ typedef struct s_route
 {
 	int			*path;
 	int			cost;
+	int			num_ants;
 }				t_route;
+
+typedef struct	s_ant
+{
+	int			*path;
+	int			wait;
+	int			turns_taken;
+}				t_ant;
 
 t_list		*read_input(void);
 
@@ -60,4 +65,10 @@ void    delete_adjlist(t_anthill *anthill);
 void    delete_inputlines(t_list **input_lines);
 
 int	bfs(t_anthill *ah, int *pred, int *dist, int *ignore, size_t ignore_size);
+void    find_routes(t_anthill *anthill, t_route **routes, int num_routes);
+
+// FOR DEBUGGING
+# include <stdio.h>
+// END DEBUGGING
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 19:42:46 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 12:16:05 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 17:08:42 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ int	solve(t_anthill *anthill)
 	i = 0;
 	while (i < iter)
 		print_route(anthill, routes[i++]);
+	if (iter > 0)
+		find_routes(anthill, routes, iter);
 	return (!iter ? 0 : 1);
 }
 
@@ -127,8 +129,8 @@ int main(void)
 		if (build_anthill(input_lines, &anthill) != -1)
 		{
 			//print_roomlist(anthill);
-			print_nodelist(anthill);
-			ft_putstr("FINDING PATH\n");
+			//print_nodelist(anthill);
+			//ft_putstr("FINDING PATH\n");
 			if (!(solve(&anthill)))
 				ft_putstr("ERROR\n");
 			delete_inputlines(&input_lines);
