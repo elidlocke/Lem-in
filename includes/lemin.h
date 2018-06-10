@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:33:43 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 16:47:11 by jpollore         ###   ########.fr       */
+/*   Updated: 2018/06/09 20:03:26 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 # include "libft.h"
 # include <limits.h>
 
-// FOR DEBUGGING
-# include <stdio.h>
-// END DEBUGGING
 
 typedef struct	s_room
 {
@@ -42,6 +39,7 @@ typedef struct s_route
 {
 	int			*path;
 	int			cost;
+	int			num_ants;
 }				t_route;
 
 typedef struct s_search
@@ -50,7 +48,14 @@ typedef struct s_search
 	int			*dist;
 }				t_search;
 
-t_list	*read_input(void);
+typedef struct	s_ant
+{
+	int			*path;
+	int			wait;
+	int			turns_taken;
+}				t_ant;
+
+t_list		*read_input(void);
 
 int     is_antcount(char *line);
 int     is_roomline(char *line);
@@ -66,6 +71,12 @@ void    delete_roomlist(t_anthill *anthill);
 void    delete_adjlist(t_anthill *anthill);
 void    delete_inputlines(t_list **input_lines);
 
-int	bfs(t_anthill *ah, t_search *info, t_route *ignore);
-int	solve(t_anthill *anthill);
+int		bfs(t_anthill *ah, t_search *info, t_route *ignore);
+int		solve(t_anthill *anthill);
+void    find_routes(t_anthill *anthill, t_route **routes, int num_routes);
+
+// FOR DEBUGGING
+# include <stdio.h>
+// END DEBUGGING
+
 #endif

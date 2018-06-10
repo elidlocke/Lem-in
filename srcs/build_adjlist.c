@@ -6,31 +6,42 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 17:01:05 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 12:18:53 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 17:16:41 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int     lookup_room_index(char *name, t_anthill *anthill)
-{
-    int i;
-    char *current_name;
+/*
+** Iterates through all of the rooms until it finds a room name that matches
+** the input string, then returns the index of the matching room name. Returns
+** -1 on error.
+*/
 
-    i = 0;
-    while (i < anthill->num_rooms)
-    {
-        current_name = (anthill->rooms[i]->name);
-        if (ft_strcmp(name, current_name) == 0)
-            return (i);
-        i++;
-    }
-    return (-1);
+int		lookup_room_index(char *name, t_anthill *anthill)
+{
+	int		i;
+	char	*current_name;
+
+	i = 0;
+	while (i < anthill->num_rooms)
+	{
+		current_name = (anthill->rooms[i]->name);
+		if (ft_strcmp(name, current_name) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
 }
+
+/*
+** Creates an array of linked list nodes, representing the indices of the
+** rooms
+*/
 
 void	create_adjlist(t_anthill *anthill)
 {
-	int i;
+	int		i;
 	t_list	*node;
 	t_list	**node_arr;
 
@@ -45,17 +56,22 @@ void	create_adjlist(t_anthill *anthill)
 	anthill->adj_list = node_arr;
 }
 
-void    add_tunnels(t_list *input_lines, t_anthill *anthill)
+/*
+** Adds a linked list node to each linked list, drawing adjancies between the
+** individual rooms in the array of linked lists. Finishes the adjacency list
+** representation.
+*/
+
+void	add_tunnels(t_list *input_lines, t_anthill *anthill)
 {
-    char    **room_names;
-    int     room_from;
-    int     room_to;
+	char	**room_names;
+	int		room_from;
+	int		room_to;
 	t_list	*node;
 	char	*line;
-	
+
 	line = (char *)input_lines->content;
 	room_names = ft_strsplit(line, '-');
-	//printf("[%s] to [%s]\n", room_names[0], room_names[1]);
 	room_from = lookup_room_index(room_names[0], anthill);
 	room_to = lookup_room_index(room_names[1], anthill);
 	ft_strarrdel(room_names);
@@ -70,30 +86,41 @@ void    add_tunnels(t_list *input_lines, t_anthill *anthill)
 	ft_lstaddend(&(anthill->adj_list)[room_from], node);
 }
 
+/*
+** Deletes the array of linked lists representing the rooms and tunnels in
+** the anthill
+*/
+
 void	delete_adjlist(t_anthill *anthill)
 {
-    int i;
-    t_list *node;
-	t_list *next;
-    i = 0;
-    while (i < anthill->num_rooms)
-    {
-        node = anthill->adj_list[i];
-        while (node)
-        {
-            next = node->next;
+	int		i;
+	t_list	*node;
+	t_list	*next;
+
+	i = 0;
+	while (i < anthill->num_rooms)
+	{
+		node = anthill->adj_list[i];
+		while (node)
+		{
+			next = node->next;
 			free(node->content);
 			free(node);
 			node = next;
-        }
-        i++;
-    }
+		}
+		i++;
+	}
 }
+
+/*
+** Builds and populates adjacency list representing the graph structure of
+** the anthill
+*/
 
 void	build_adjlist(t_list *input_lines, t_anthill *anthill)
 {
 	char	*line;
-	
+
 	create_adjlist(anthill);
 	while (input_lines)
 	{

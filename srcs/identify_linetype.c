@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 11:59:44 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 11:38:35 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 17:19:08 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 /*
 ** Check if a line contains the number of ants and nothing else
 */
-int		is_antcount(char *line)
+
+int	is_antcount(char *line)
 {
 	while (*line)
 	{
@@ -27,50 +28,49 @@ int		is_antcount(char *line)
 	return (1);
 }
 
-
 /*
 ** Check if an input line is a valid room
 */
 
-int     is_roomline(char *line)
+int	is_roomline(char *line)
 {
-    int space_count;
+	int space_count;
 	int	word_flag;
 
-    space_count = 0;
+	space_count = 0;
 	word_flag = 0;
-    while (*line)
-    {
-        if (*line == ' ')
+	while (*line)
+	{
+		if (*line == ' ')
 		{
-            word_flag = 1;
+			word_flag = 1;
 			space_count++;
 		}
 		else if (word_flag && !(ft_isdigit(*line)))
 			return (0);
 		line++;
-    }
-    if (space_count == 2)
-        return (1);
-    return (0);
+	}
+	if (space_count == 2)
+		return (1);
+	return (0);
 }
 
 /*
 ** Check if an input line is a tunnel line
 */
 
-int     is_tunnelline(char *line)
+int	is_tunnelline(char *line)
 {
-    int dash_count;
+	int dash_count;
 
-    dash_count = 0;
-    while (*line)
-    {
-        if (*line == '-')
-            dash_count++;
-        line++;
-    }
-    if (dash_count == 1)
-        return (1);
-    return (0);
+	dash_count = 0;
+	while (*line)
+	{
+		if (*line == '-')
+			dash_count++;
+		line++;
+	}
+	if (dash_count == 1)
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 09:40:52 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 12:16:40 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 19:46:30 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 
 void	set_num_ants(t_list *input_lines, t_anthill *anthill)
 {
-    char	*line;
+	char	*line;
 	int		num_ants;
+
 	line = (char *)input_lines->content;
 	while (line[0] == '#')
 	{
@@ -84,25 +85,25 @@ void	init_anthill_defaults(t_anthill *anthill)
 ** Check if the int values have been set for the anthill
 */
 
-void    validate_anthill(t_anthill *anthill)
+void	validate_anthill(t_anthill *anthill)
 {
-    if (anthill->num_ants < 1)
-        anthill->is_valid = 0;
-    else if (anthill->start_idx == -1 ||
+	if (anthill->num_ants < 1)
+		anthill->is_valid = 0;
+	else if (anthill->start_idx == -1 ||
 			anthill->start_idx >= anthill->num_rooms)
-        anthill->is_valid = 0;
-    else if (anthill->end_idx == -1 ||
+		anthill->is_valid = 0;
+	else if (anthill->end_idx == -1 ||
 			anthill->end_idx >= anthill->num_rooms)
-        anthill->is_valid = 0;
-    else if (anthill->num_rooms < 2)
-        anthill->is_valid = 0;
+		anthill->is_valid = 0;
+	else if (anthill->num_rooms < 2)
+		anthill->is_valid = 0;
 }
 
 /*
 ** Build the anthill struct. Returns -1 if an error has occured
 */
 
-int	build_anthill(t_list *input_lines, t_anthill *anthill)
+int		build_anthill(t_list *input_lines, t_anthill *anthill)
 {
 	init_anthill_defaults(anthill);
 	set_num_ants(input_lines, anthill);

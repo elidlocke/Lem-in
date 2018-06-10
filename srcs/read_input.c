@@ -6,11 +6,16 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 15:27:08 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 12:15:24 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/09 17:05:35 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+/*
+** Free the input lines and the linked list nodes that the input lines are
+** stored within
+*/
 
 void	delete_inputlines(t_list **input_lines)
 {
@@ -24,7 +29,7 @@ void	delete_inputlines(t_list **input_lines)
 		while (node)
 		{
 			next = node->next;
-			line = (char *)node->content;	
+			line = (char *)node->content;
 			ft_strdel(&line);
 			free(node);
 			node = next;
@@ -36,6 +41,7 @@ void	delete_inputlines(t_list **input_lines)
 /*
 ** Check that the format of all of the input lines is correct
 */
+
 int		validate_input_lines(t_list *input_lines)
 {
 	char	*line;
@@ -47,23 +53,19 @@ int		validate_input_lines(t_list *input_lines)
 	while (input_lines)
 	{
 		line = (char *)input_lines->content;
-		if (line[0] == '#')
+		if (line[0] != '#')
 		{
-			input_lines = input_lines->next;
-			continue ;
+			if (i == 0 && !(is_antcount(line)))
+				return (-1);
+			if (i > 0 && is_tunnelline(line))
+				started_tunnels = 1;
+			if (i > 0 && started_tunnels == 0 && !(is_roomline(line)))
+				return (-1);
+			if (i > 0 && started_tunnels == 1 && !(is_tunnelline(line)))
+				return (-1);
+			i++;
 		}
-		if (i == 0 && !(is_antcount(line)))
-			return (-1);
-		if (i > 0 && is_tunnelline(line))
-			started_tunnels = 1;
-		if (i > 0 && started_tunnels == 0 &&
-			!(is_roomline(line)))
-			return (-1);
-		if (i > 0 && started_tunnels == 1 &&
-			!(is_tunnelline(line)))
-			return (-1);
 		input_lines = input_lines->next;
-		i++;
 	}
 	return (0);
 }
@@ -73,12 +75,11 @@ int		validate_input_lines(t_list *input_lines)
 */
 
 t_list	*read_input(void)
-{	
+{
 	char	*line;
-	t_list *lst;
+	t_list	*lst;
 	t_list	*node;
 
-	(void)node;
 	line = NULL;
 	lst = NULL;
 	while (ft_getnextline(0, &line) > 0)

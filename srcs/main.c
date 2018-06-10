@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 19:42:46 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 16:47:45 by jpollore         ###   ########.fr       */
+/*   Updated: 2018/06/09 20:02:01 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,30 @@ void	print_nodelist(t_anthill anthill)
 		}
 		i++;
 	}
+}
+
+void	print_route(t_anthill *anthill, t_route *route)
+{
+	int i;
+	int	*path;
+
+	i = 0;
+	path = route->path;
+	while (path[i] != anthill->end_idx)
+	{
+		ft_putstr(anthill->rooms[path[i]]->name);
+		ft_putchar('(');
+		ft_putnbr(path[i]);
+		ft_putchar(')');
+		ft_putstr(" -> ");
+		i++;
+	}
+	ft_putstr(anthill->rooms[path[i]]->name);
+	ft_putchar('(');
+	ft_putnbr(path[i]);
+	ft_putstr(") [");
+	ft_putnbr(route->cost);
+	ft_putstr("]\n");
 }
 
 int main(void)
