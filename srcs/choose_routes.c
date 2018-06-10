@@ -6,13 +6,13 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 13:41:36 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 20:14:56 by jpollore         ###   ########.fr       */
+/*   Updated: 2018/06/10 11:16:34 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-/* TODO: DELETE THIS FUNCTION */
+/* TODO: DELETE THIS FUNCTION. For Testing Only */
 
 void    print_path(t_anthill *anthill, int *path)
 {
@@ -73,7 +73,7 @@ int		get_shortest_route_index(t_route **routes, int num_routes)
 ** Loop through all the ants and find the optimal route for each ant
 */
 
-void	find_routes(t_anthill *anthill, t_route **routes, int num_routes)
+void	choose_routes(t_anthill *anthill, t_route **routes, int num_routes)
 {
 	int		i;
 	int		route_idx;
@@ -86,13 +86,15 @@ void	find_routes(t_anthill *anthill, t_route **routes, int num_routes)
 		route_idx = get_shortest_route_index(routes, num_routes);
 		ants[i].wait = routes[route_idx]->num_ants;
 		routes[route_idx]->num_ants = routes[route_idx]->num_ants + 1;
-		ants[i].path = routes[route_idx]->path;
+		ants[i].route = routes[route_idx];
 		ants[i].turns_taken = routes[route_idx]->cost + ants[i].wait;
-		// TODO: make a real print function for the assignment
+		/*
 		printf("ant[%d] takes path[%d], \e[1;34m for [%d] total turns\e[0m\n", i + 1,
 				route_idx, ants[i].turns_taken);
 		printf("wait %d -> ", ants[i].wait);
-		print_path(anthill, ants[i].path);
+		print_path(anthill, ants[i].route->path);
+		*/
 		i++;
 	}
+	print_turns(anthill, ants);
 }

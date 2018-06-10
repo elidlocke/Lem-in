@@ -6,7 +6,7 @@
 #    By: enennige <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/04 14:06:38 by enennige          #+#    #+#              #
-#    Updated: 2018/06/09 20:04:12 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/10 09:31:25 by enennige         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 SRC_PATH = srcs/
 SRC_NAME = main.c read_input.c build_anthill.c identify_linetype.c solve.c
 SRC_NAME += build_roomlist.c build_adjlist.c search.c choose_routes.c
+SRC_NAME += print_turns.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJS = $(patsubst %.c, %.o, $(SRC_NAME))
 LIB_NAME = libft
