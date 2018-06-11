@@ -68,6 +68,9 @@ def update(num):
     nodes = nx.draw_networkx_nodes(G, pos, node_color=default_node_color, node_size=node_sizes)
     nodes.set_edgecolor(line_color)
 
+    # Change the attributes of a tunnel:
+    G['A']['B']['color']='blue'
+
     # Start and End nodes
     s_node = nx.draw_networkx_nodes(G, pos, nodelist=[input_start_node], node_color=se_node_color,
                node_size=se_node_sizes)
