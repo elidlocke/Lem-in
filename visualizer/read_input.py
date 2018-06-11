@@ -9,7 +9,7 @@ from pprint import pprint
 def parse_map(cfg, map_path):
     patterns = {
         'tunnel': re.compile(r'^([\d\w]+)-([\d\w]+)\n$'),
-        'nodes': re.compile(r'^([\d\w]+) (\d+) (\d+)\n$'),
+        'nodes': re.compile(r'^([\d\w]+) \d+ \d+\n$'),
         'start': re.compile(r'^##start\n$'),
         'end': re.compile(r'^##end\n$'),
         'ants': re.compile(r'^(\d+)\n$')
@@ -21,8 +21,8 @@ def parse_map(cfg, map_path):
                 for match in case.findall(line):
                     if pattern in ['start', 'end']:
                         match = patterns['nodes'].search(next(f))
-                        cfg[pattern] = match.groups(1)
-                        cfg['nodes'].append(match.groups())
+                        cfg[pattern] = match.groups(1)[0]
+                        cfg['nodes'].append(match.groups()[0])
                     elif pattern is 'ants':
                         cfg[pattern] = match
                     else:
