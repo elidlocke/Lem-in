@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 15:27:08 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 17:05:35 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/10 15:00:42 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		validate_input_lines(t_list *input_lines)
 
 t_list	*read_input(void)
 {
-	int	ret;
+	int		ret;
 	char	*line;
 	t_list	*lst;
 	t_list	*node;
