@@ -14,7 +14,7 @@ occupied_node_color = '#FC9C0C'
 
 #Input Data
 input_turns = 6
-input_nodes = ['START', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'END']
+node_names = ['START', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'END']
 input_tunnels = [('START', 'A'),
                   ('A', 'B'),
                   ('B', 'END'),
@@ -31,31 +31,47 @@ input_tunnels = [('START', 'A'),
                   ('J', 'K'),
                   ('K', 'L'),
                   ('L', 'END')]
-input_turn_locations = [['START'],
-               ['START', 'A', 'C'],
-               ['START', 'A', 'C', 'B', 'D'],
-               ['A', 'C', 'B', 'D', 'END'],
-               ['B', 'D', 'END'],
-               ['END']]
-
-input_start_node = 'START'
-input_end_node = 'END'
+input_turn_locations = [[(1, 'START'), (2, 'START'), (3, 'START'), (4, 'START')],
+               [(1, 'A'), (2, 'C'), (3, 'START'), (4, 'START')],
+               [(1, 'B'), (2, 'D'), (3, 'A'), (4, 'C')],
+               [(1, 'END'), (2, 'END'), (3, 'B'), (4, 'D')],
+               [(3, 'END'), (4, 'END')]]
+start_node_name = 'START'
+end_node_name = 'END'
 
 #Graph
 G = nx.Graph()
-G.add_nodes_from(input_nodes)
+G.add_nodes_from(node_names)
 G.add_edges_from(input_tunnels)
 
 #Custom Looks
-node_sizes = len(input_nodes) * 50
+node_sizes = len(node_names) * 50
 se_node_sizes = node_sizes * 1.5
-input_turn_locations.append([])
 
 #Choose Node Positions
 pos = nx.spring_layout(G)
 
 #Build plot
 fig = plt.figure()
+
+def highlight_node(node):
+    node.set_color(occupied_node_color) 
+    node.set_edgecolor(line_color)
+
+def draw_node(node_name, node_color, node_size, line_color):
+    node_list = []
+    node_list.append(node_name)
+    node = nx.draw_networkx_nodes(G, pos, nodelist=node_list, node_color=node_color,
+               node_size=node_size)
+    node.set_edgecolor(line_color)
+    return (node)
+
+def draw_nodes(node_names, node_color, node_size, line_color):
+    nodes = {}
+    for name in node_names:
+        node = draw_node(name, node_color, node_size, line_color)
+        nodes[name] = node
+    return (nodes)
 
 def update(num):
    
@@ -65,38 +81,25 @@ def update(num):
 
     # Default nodes & tunnels:
     tunnels = nx.draw_networkx_edges(G, pos, edge_color=line_color, width=2.0)
-    nodes = nx.draw_networkx_nodes(G, pos, node_color=default_node_color, node_size=node_sizes)
-    nodes.set_edgecolor(line_color)
-
-    # Change the attributes of a tunnel:
-    G['A']['B']['color']='blue'
+    nodes = draw_nodes(node_names, default_node_color, node_sizes, line_color)
 
     # Start and End nodes
-    s_node = nx.draw_networkx_nodes(G, pos, nodelist=[input_start_node], node_color=se_node_color,
-               node_size=se_node_sizes)
-    s_node.set_edgecolor(line_color)
-    e_node = nx.draw_networkx_nodes(G, pos, nodelist=[input_end_node], node_color=se_node_color,
-               node_size=se_node_sizes)
-    e_node.set_edgecolor(line_color)
-    if input_start_node in input_turn_locations[num]:
-        s_node.set_color(occupied_node_color) 
-        s_node.set_edgecolor(line_color)
-    if input_end_node in input_turn_locations[num]:
-        e_node.set_color(occupied_node_color)
-        e_node.set_edgecolor(line_color)
+    s_node = draw_node(start_node_name, se_node_color, se_node_sizes, line_color)
+    e_node = draw_node(end_node_name, se_node_color, se_node_sizes, line_color)
+    
+    # Highlight occupied nodes
+    if num < input_turns - 1:
+        current_node_names = [x[1] for x in input_turn_locations[num]]
+        if start_node_name in current_node_names:
+            highlight_node(s_node)
+        if end_node_name in current_node_names:
+            highlight_node(e_node)
+        for name in current_node_names:
+            highlight_node(nodes[name])
+
     room_names = nx.draw_networkx_labels(G, pos, font_size=8,
                                          font_family='sans-serif')
   
-    # Highlight occupied nodes
-    # TODO: Change this to select and change the color instead of redrawing !
-    occupied_nodes = nx.draw_networkx_nodes(G, pos,
-                                            nodelist=[node for node in input_turn_locations[num] \
-                                                      if node != input_start_node and node \
-                                                      != input_end_node],
-                                            node_color=occupied_node_color, node_size=node_sizes)
-    if occupied_nodes:
-        occupied_nodes.set_edgecolor(line_color)
-    
     #set the background color
     fig.set_facecolor(bg_color)
    
