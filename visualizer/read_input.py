@@ -8,7 +8,7 @@ from pprint import pprint
 
 def parse_map(cfg, map_path):
     patterns = {
-        'tunnel': re.compile(r'^([\d\w]+)-([\d\w]+)\n$'),
+        'tunnels': re.compile(r'^([\d\w]+)-([\d\w]+)\n$'),
         'nodes': re.compile(r'^([\d\w]+) \d+ \d+\n$'),
         'start': re.compile(r'^##start\n$'),
         'end': re.compile(r'^##end\n$'),
@@ -53,7 +53,7 @@ def parse_sol(cfg, sol_path):
 
 def parse(map_path, sol_path=None):
     cfg = {
-        'tunnel': [],
+        'tunnels': [],
         'nodes': [],
         'turns': [],
         'start': None,
