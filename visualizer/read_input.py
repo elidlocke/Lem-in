@@ -20,7 +20,10 @@ def parse_map(cfg, map_path):
             for pattern, case in patterns.items():
                 for match in case.findall(line):
                     if pattern in ['start', 'end']:
-                        match = patterns['nodes'].search(next(f))
+                        node = next(f)
+                        while node.startswith("#"):
+                            node = next(f)
+                        match = patterns['nodes'].search(node)
                         cfg[pattern] = match.groups(1)[0]
                         cfg['nodes'].append(match.groups()[0])
                     elif pattern is 'ants':
