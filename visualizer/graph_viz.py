@@ -6,14 +6,16 @@ from matplotlib.animation import FuncAnimation
 
 # Colors
 bg_color = '#111111'
-line_color = '#666666'
+line_color = '#282828'
 default_node_color = '#0C6CFC'
 se_node_color = '#0C6CFC'
-occupied_node_color = '#FC9C0C'
+highlight_color = '#FC9C0C'
+# v modify to be 50% of highlight on white and back bg
+odd_ant_color = "#8E590A"
+even_ant_color = '#FDBA55'
 
 
 #Input Data
-input_turns = 6
 node_names = ['START', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'END']
 input_tunnels = [('START', 'A'),
                   ('A', 'B'),
@@ -36,6 +38,7 @@ input_turn_locations = [[(1, 'START'), (2, 'START'), (3, 'START'), (4, 'START')]
                [(1, 'B'), (2, 'D'), (3, 'A'), (4, 'C')],
                [(1, 'END'), (2, 'END'), (3, 'B'), (4, 'D')],
                [(3, 'END'), (4, 'END')]]
+input_turns = len(input_turn_locations)
 start_node_name = 'START'
 end_node_name = 'END'
 
@@ -54,8 +57,8 @@ pos = nx.spring_layout(G)
 #Build plot
 fig = plt.figure()
 
-def highlight_node(node):
-    node.set_color(occupied_node_color) 
+def highlight_node(node, highlight_color):
+    node.set_color(highlight_color) 
     node.set_edgecolor(line_color)
 
 def draw_node(node_name, node_color, node_size, line_color):
@@ -73,31 +76,51 @@ def draw_nodes(node_names, node_color, node_size, line_color):
         nodes[name] = node
     return (nodes)
 
+def get_odd_ants():
+    odd_ants = []
+    all_ants = []
+    for turn in range(0,input_turns):
+        for ant_move in input_turn_locations[turn]:
+            if ant_move[1] != start_node_name and ant_move[0] not in all_ants:
+                if turn % 2 == 1:
+                    odd_ants.append(ant_move[0])
+                all_ants.append(ant_move[0])
+    print(all_ants)
+    print("ODD" + str(odd_ants))
+    return (odd_ants)
+
 def update(num):
    
     #Restart:
     fig.clear()
+    odd_ants = get_odd_ants()
     print(num)
 
-    # Default nodes & tunnels:
+    # default nodes & tunnels:
     tunnels = nx.draw_networkx_edges(G, pos, edge_color=line_color, width=2.0)
     nodes = draw_nodes(node_names, default_node_color, node_sizes, line_color)
 
-    # Start and End nodes
+    # start and end nodes
     s_node = draw_node(start_node_name, se_node_color, se_node_sizes, line_color)
     e_node = draw_node(end_node_name, se_node_color, se_node_sizes, line_color)
     
-    # Highlight occupied nodes
-    if num < input_turns - 1:
+    # highlight occupied nodes
+    if num < input_turns:
         current_node_names = [x[1] for x in input_turn_locations[num]]
         if start_node_name in current_node_names:
-            highlight_node(s_node)
+            highlight_node(s_node, highlight_color)
         if end_node_name in current_node_names:
-            highlight_node(e_node)
-        for name in current_node_names:
-            highlight_node(nodes[name])
+            highlight_node(e_node, highlight_color)
+        for move in input_turn_locations[num]:
+            if move[0] in odd_ants: 
+                highlight_node(nodes[move[1]], odd_ant_color)
+            else:
+                highlight_node(nodes[move[1]], even_ant_color)
 
+    #labels
     room_names = nx.draw_networkx_labels(G, pos, font_size=8,
+                                         labels=dict([(start_node_name, start_node_name),
+                                                      (end_node_name, end_node_name)]),
                                          font_family='sans-serif')
   
     #set the background color
