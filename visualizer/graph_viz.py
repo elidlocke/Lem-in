@@ -10,8 +10,9 @@ from read_input import parse
 # Colors
 bg_color = '#111111'
 line_color = '#282828'
-default_node_color = '#0C6CFC'
-se_node_color = '#0C6CFC'
+text_color = '#EEEEEE'
+default_node_color = '#282828'
+se_node_color = '#AAAAAA'
 highlight_color = '#FC9C0C'
 # v modify to be 50% of highlight on white and back bg
 odd_ant_color = "#8E590A"
@@ -29,62 +30,64 @@ def draw_node(node_name, node_color, node_size, line_color):
     node.set_edgecolor(line_color)
     return (node)
 
-def draw_nodes(node_names, node_color, node_size, line_color):
+def draw_nodes(anthill_data, node_color, node_size, line_color):
     nodes = {}
-    for name in node_names:
-        node = draw_node(name, node_color, node_size, line_color)
+    for name in anthill_data['nodes']:
+        if name == anthill_data['start'] or name == anthill_data['end']:
+            node = draw_node(name, node_color, node_size * 2.5, line_color)
+        else:
+            node = draw_node(name, node_color, node_size, line_color)
         nodes[name] = node
     return (nodes)
 
-def get_odd_ants(anthill_data):
-    odd_ants = []
-    all_ants = []
-    for turn in range(0,anthill_data['num_turns']):
-        for ant_move in anthill_data['turns'][turn]:
-            if ant_move[1] != anthill_data['start'] and \
-               ant_move[0] not in all_ants:
-                if turn % 2 == 1:
-                    odd_ants.append(ant_move[0])
-                all_ants.append(ant_move[0])
-    return (odd_ants)
+'''
+def draw_ant(pos, anthill_data, x_pos, y_pos):
+    ants = []
+    for ant in anthill_data['ants']:
+        ants.append(plt.plot([pos['start'][0]],
+                           [pos['start'][1]],
+                           'g.',
+                           markersize=20.0))
+    return (ants)
+'''
+def draw_ant(ant_number, position, color):
+    ant = plt.plot([position[0]], [position[1]], color, markersize=20.0)
+    return (ant)
 
-def update(num, random_int, anthill_data):
+def get_ant_points(ant_number, start_pos, end_pos):
+    x = np.linspace(start_pos[0], end_pos[0], num=10)
+    y = np.linspace(start_pos[1], end_pos[1], num=10)
+    journey = zip(x, y)
+    return (journey)
+
+def update(num, G, pos, anthill_data):
    
     #Restart:
     fig.clear()
-    odd_ants = get_odd_ants(anthill_data)
     print(num)
+    print("pos" + str(pos))
     #print(anthill_data)
+    
+    #Custom Looks
+    node_size = 500
 
     # default nodes & tunnels:
     tunnels = nx.draw_networkx_edges(G, pos, edge_color=line_color, width=2.0)
-    nodes = draw_nodes(anthill_data['nodes'], default_node_color,
-                       node_sizes, line_color)
+    nodes = draw_nodes(anthill_data, default_node_color,
+                       node_size, line_color)
 
-    # start and end nodes
-    s_node = draw_node(anthill_data['start'], se_node_color,
-                       se_node_sizes, line_color)
-    e_node = draw_node(anthill_data['end'], se_node_color,
-                       se_node_sizes, line_color)
-    
-    # highlight occupied nodes
-    if num < anthill_data['num_turns']:
-        current_node_names = [x[1] for x in anthill_data['turns'][num]]
-        if anthill_data['start'] in current_node_names:
-            highlight_node(s_node, highlight_color)
-        if anthill_data['end'] in current_node_names:
-            highlight_node(e_node, highlight_color)
-        for move in anthill_data['turns'][num]:
-            if move[0] in odd_ants: 
-                highlight_node(nodes[move[1]], odd_ant_color)
-            else:
-                highlight_node(nodes[move[1]], even_ant_color)
+    #draw all the ants at the start:
+    # TODO: room1 is hard coded, whooops
+    ant_number = 1
+    journey = get_ant_points(ant_number, pos['start'], pos['room1'])
+    for location in journey:
+        draw_ant(ant_number, location, 'g.')
 
     #labels
     room_names = nx.draw_networkx_labels(G, pos, font_size=8,
         labels=dict([(anthill_data['start'], 'START'),
                      (anthill_data['end'], 'END')]),
-        font_family='sans-serif')
+        font_family='sans-serif', font_color=text_color)
   
     #set the background color
     fig.set_facecolor(bg_color)
@@ -114,22 +117,16 @@ if __name__ == "__main__":
     G.add_nodes_from(anthill_data['nodes'])
     G.add_edges_from(anthill_data['tunnels'])
 
-    #Custom Looks
-    node_sizes = len(anthill_data['nodes']) * 50
-    se_node_sizes = node_sizes * 1.5
 
     #Choose Node Positions
     pos = nx.spring_layout(G)
 
     #Build plot
     fig = plt.figure()
-    
-    #Animate :D
-    #should delete this random int but why cant i pass just the dict into the
-    #fargs? It keeps getting unpacked into 7 items :(
-    random_int = 5
+
+    #Animate
     ani = FuncAnimation(fig, update, frames=anthill_data['num_turns'] + 1,
-                        fargs=(random_int, anthill_data),
+                        fargs=(G, pos, anthill_data),
                         interval=1000, repeat=True)
     #Open Display Window
     plt.show()
