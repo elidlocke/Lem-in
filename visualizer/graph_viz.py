@@ -6,6 +6,7 @@ import os
 from matplotlib.animation import FuncAnimation
 import argparse
 from read_input import parse
+from ant import Ant
 
 # Colors
 bg_color = '#111111'
@@ -40,32 +41,16 @@ def draw_nodes(anthill_data, node_color, node_size, line_color):
         nodes[name] = node
     return (nodes)
 
-'''
-def draw_ant(pos, anthill_data, x_pos, y_pos):
-    ants = []
-    for ant in anthill_data['ants']:
-        ants.append(plt.plot([pos['start'][0]],
-                           [pos['start'][1]],
-                           'g.',
-                           markersize=20.0))
-    return (ants)
-'''
-def draw_ant(ant_number, position, color):
+def draw_ant(position, color):
     ant = plt.plot([position[0]], [position[1]], color, markersize=20.0)
     return (ant)
 
-def get_ant_points(ant_number, start_pos, end_pos):
-    x = np.linspace(start_pos[0], end_pos[0], num=10)
-    y = np.linspace(start_pos[1], end_pos[1], num=10)
-    journey = zip(x, y)
-    return (journey)
-
-def update(num, G, pos, anthill_data):
+def update(num, G, pos, num_steps, anthill_data, ants):
    
     #Restart:
     fig.clear()
     print(num)
-    print("pos" + str(pos))
+    #print("pos" + str(pos))
     #print(anthill_data)
     
     #Custom Looks
@@ -77,12 +62,9 @@ def update(num, G, pos, anthill_data):
                        node_size, line_color)
 
     #draw all the ants at the start:
-    # TODO: room1 is hard coded, whooops
-    ant_number = 1
-    journey = get_ant_points(ant_number, pos['start'], pos['room1'])
-    for location in journey:
-        draw_ant(ant_number, location, 'g.')
-
+    for ant in ants:
+        if num < len(ant.journey):
+            draw_ant(ant.journey[num], 'g.')
     #labels
     room_names = nx.draw_networkx_labels(G, pos, font_size=8,
         labels=dict([(anthill_data['start'], 'START'),
@@ -95,6 +77,17 @@ def update(num, G, pos, anthill_data):
     # hide the silly axis
     plt.axis('off') 
 
+
+def make_ants(G, pos, num_steps, anthill_data):
+    ants=[]
+    for ant_num in range(1,int(anthill_data['ants']) + 1):
+        ant = Ant(ant_num)
+        ant.set_node_path(anthill_data)
+        ant.set_location(pos, anthill_data)
+        ant.set_journey(pos, num_steps, anthill_data)
+        ants.append(ant)
+    #print(ants[-1].journey)
+    return (ants)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -117,16 +110,20 @@ if __name__ == "__main__":
     G.add_nodes_from(anthill_data['nodes'])
     G.add_edges_from(anthill_data['tunnels'])
 
-
     #Choose Node Positions
     pos = nx.spring_layout(G)
+    
+    #Set how fast the ants travel
+    num_steps = 10
+
+    ants = make_ants(G, pos, num_steps, anthill_data)
 
     #Build plot
     fig = plt.figure()
 
     #Animate
-    ani = FuncAnimation(fig, update, frames=anthill_data['num_turns'] + 1,
-                        fargs=(G, pos, anthill_data),
-                        interval=1000, repeat=True)
+    ani = FuncAnimation(fig, update, frames=anthill_data['num_turns'] * num_steps,
+                        fargs=(G, pos, num_steps, anthill_data, ants),
+                        interval=350, repeat=True)
     #Open Display Window
     plt.show()
