@@ -12,7 +12,8 @@
 
 import numpy as np
 
-class   Ant:
+
+class Ant:
 
     def __init__(self, number, node_path=None,
                  journey=None, color='g.'):
@@ -20,7 +21,6 @@ class   Ant:
         self.node_path = node_path
         self.journey = journey
         self.color = color
-
 
     def set_node_path(self, anthill_data):
         self.node_path = []
@@ -31,7 +31,7 @@ class   Ant:
                 if move[0] == str(self.number):
                     self.node_path.append(move[1])
                     started = True
-            if started == False:
+            if not started:
                 self.node_path.append(anthill_data['start'])
 
     def set_location(self, pos, anthill_data):
@@ -49,5 +49,3 @@ class   Ant:
                 location_list.extend(list(zip(x, y)))
             i += 1
         self.journey = location_list
-
-
