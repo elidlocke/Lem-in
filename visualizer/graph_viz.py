@@ -13,11 +13,8 @@ bg_color = '#111111'
 line_color = '#282828'
 text_color = '#EEEEEE'
 default_node_color = '#282828'
-se_node_color = '#AAAAAA'
-highlight_color = '#FC9C0C'
-# v modify to be 50% of highlight on white and back bg
-odd_ant_color = "#8E590A"
-even_ant_color = '#FDBA55'
+ant_colors = ['#b61515', '#B66615', '#B6B615', '#66B615', '#15B615', '#15B666',
+              '#15B6B6', '#1515B6', '#6615B6', '#B615B6', '#B61566']
 
 def highlight_node(node, highlight_color):
     node.set_color(highlight_color) 
@@ -42,18 +39,12 @@ def draw_nodes(anthill_data, node_color, node_size, line_color):
     return (nodes)
 
 def draw_ant(position, color):
-    ant = plt.plot([position[0]], [position[1]], color, markersize=20.0)
+    ant = plt.plot([position[0]], [position[1]], color=color, marker='.', markersize=20.0)
     return (ant)
 
 def update(num, G, pos, num_steps, anthill_data, ants):
    
-    #Restart:
     fig.clear()
-    print(num)
-    #print("pos" + str(pos))
-    #print(anthill_data)
-    
-    #Custom Looks
     node_size = 500
 
     # default nodes & tunnels:
@@ -61,10 +52,10 @@ def update(num, G, pos, num_steps, anthill_data, ants):
     nodes = draw_nodes(anthill_data, default_node_color,
                        node_size, line_color)
 
-    #draw all the ants at the start:
+    #draw all the ants:
     for ant in ants:
         if num < len(ant.journey):
-            draw_ant(ant.journey[num], 'g.')
+            draw_ant(ant.journey[num], ant.color)
     #labels
     room_names = nx.draw_networkx_labels(G, pos, font_size=8,
         labels=dict([(anthill_data['start'], 'START'),
@@ -74,7 +65,7 @@ def update(num, G, pos, num_steps, anthill_data, ants):
     #set the background color
     fig.set_facecolor(bg_color)
    
-    # hide the silly axis
+    # hide the axis
     plt.axis('off') 
 
 
@@ -85,8 +76,8 @@ def make_ants(G, pos, num_steps, anthill_data):
         ant.set_node_path(anthill_data)
         ant.set_location(pos, anthill_data)
         ant.set_journey(pos, num_steps, anthill_data)
+        ant.color = ant_colors[ant_num % 11]
         ants.append(ant)
-    #print(ants[-1].journey)
     return (ants)
 
 if __name__ == "__main__":
@@ -102,20 +93,16 @@ if __name__ == "__main__":
     if args.solution and not os.path.exists(args.solution):
         raise IOError("Solution file not found")
 
-    #Get data
     anthill_data = parse(args.map, args.solution)
     
     #Graph
     G = nx.Graph()
     G.add_nodes_from(anthill_data['nodes'])
     G.add_edges_from(anthill_data['tunnels'])
-
-    #Choose Node Positions
     pos = nx.spring_layout(G)
     
     #Set how fast the ants travel
     num_steps = 10
-
     ants = make_ants(G, pos, num_steps, anthill_data)
 
     #Build plot
@@ -125,5 +112,5 @@ if __name__ == "__main__":
     ani = FuncAnimation(fig, update, frames=anthill_data['num_turns'] * num_steps,
                         fargs=(G, pos, num_steps, anthill_data, ants),
                         interval=350, repeat=True)
-    #Open Display Window
+    #Open display window
     plt.show()
