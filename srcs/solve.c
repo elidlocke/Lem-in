@@ -12,30 +12,6 @@
 
 #include "lemin.h"
 
-static void		print_route(t_anthill *anthill, t_route *route)
-{
-	int i;
-	int	*path;
-
-	i = 0;
-	path = route->path;
-	while (path[i] != anthill->end_idx)
-	{
-		ft_putstr(anthill->rooms[path[i]]->name);
-		ft_putchar('(');
-		ft_putnbr(path[i]);
-		ft_putchar(')');
-		ft_putstr(" -> ");
-		i++;
-	}
-	ft_putstr(anthill->rooms[path[i]]->name);
-	ft_putchar('(');
-	ft_putnbr(path[i]);
-	ft_putstr(") [");
-	ft_putnbr(route->cost);
-	ft_putstr("]\n");
-}
-
 static t_route	*create_route(int path_cost)
 {
 	t_route *route;
@@ -119,15 +95,11 @@ void			free_routes(t_route **arr, int size)
 
 int				solve(t_anthill *anthill)
 {
-	int		i;
 	int		iter;
 	t_route **routes;
 
 	iter = 0;
 	routes = search(anthill, &iter);
-	i = 0;
-	while (i < iter)
-		print_route(anthill, routes[i++]);
 	if (iter > 0)
 		choose_routes(anthill, routes, iter);
 	free_routes(routes, iter);

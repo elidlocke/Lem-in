@@ -12,21 +12,6 @@
 
 #include "lemin.h"
 
-/* TODO: DELETE THIS FUNCTION. For Testing Only */
-
-void    print_path(t_anthill *anthill, int *path)
-{
-	int i;
-
-	i = 0;
-	while (path[i] != anthill->end_idx)
-	{
-		printf("%s (%d) -> ", anthill->rooms[path[i]]->name, path[i]);
-		i++;
-	}
-	printf("%s (%d)\n", anthill->rooms[path[i]]->name, path[i]);
-}
-
 /*
 ** Init all the routes to have zero ants on them
 */
@@ -88,12 +73,6 @@ void	choose_routes(t_anthill *anthill, t_route **routes, int num_routes)
 		routes[route_idx]->num_ants = routes[route_idx]->num_ants + 1;
 		ants[i].route = routes[route_idx];
 		ants[i].turns_taken = routes[route_idx]->cost + ants[i].wait;
-		/*
-		printf("ant[%d] takes path[%d], \e[1;34m for [%d] total turns\e[0m\n", i + 1,
-				route_idx, ants[i].turns_taken);
-		printf("wait %d -> ", ants[i].wait);
-		print_path(anthill, ants[i].route->path);
-		*/
 		i++;
 	}
 	print_turns(anthill, ants);

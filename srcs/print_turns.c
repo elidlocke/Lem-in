@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 20:34:48 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/10 11:41:38 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/12 21:11:32 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Set an ants first turn to 1, so that the turn has a value that can be
 ** incremented
 */
+
 void	init_ant_turn(t_ant *ant)
 {
 	ant->current_turn = 1;
@@ -24,11 +25,12 @@ void	init_ant_turn(t_ant *ant)
 /*
 ** Init the current ants to their first turn
 */
-void	init_current_ant_turn(t_ant *ants, int	num_ants)
+
+void	init_current_ant_turn(t_ant *ants, int num_ants)
 {
 	int i;
 
-	i = 0;	
+	i = 0;
 	while (i < num_ants)
 	{
 		init_ant_turn(&(ants[i]));
@@ -39,6 +41,7 @@ void	init_current_ant_turn(t_ant *ants, int	num_ants)
 /*
 ** Increment the ant's state for a given turn
 */
+
 void	increment_ant_turn(t_ant *ant)
 {
 	if (ant->wait > 0)

@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:33:43 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/10 11:07:03 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/12 21:14:47 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LEMIN_H
 # include "libft.h"
 # include <limits.h>
-
 
 typedef struct	s_room
 {
@@ -35,14 +34,14 @@ typedef	struct	s_anthill
 	int			is_valid;
 }				t_anthill;
 
-typedef struct s_route
+typedef struct	s_route
 {
 	int			*path;
 	int			cost;
 	int			num_ants;
 }				t_route;
 
-typedef struct s_search
+typedef struct	s_search
 {
 	int			*pred;
 	int			*dist;
@@ -56,30 +55,25 @@ typedef struct	s_ant
 	int			current_turn;
 }				t_ant;
 
-t_list		*read_input(void);
+t_list			*read_input(void);
 
-int     is_antcount(char *line);
-int     is_roomline(char *line);
-int     is_tunnelline(char *line);
+int				is_antcount(char *line);
+int				is_roomline(char *line);
+int				is_tunnelline(char *line);
 
-int     validate_input_lines(t_list *input_lines);
+int				validate_input_lines(t_list *input_lines);
 
-int		build_anthill(t_list *input_lines, t_anthill *anthill);
-void    build_roomlist(t_list *input_lines, t_anthill *anthill);
-void	build_adjlist(t_list *input_lines, t_anthill *anthill);
+int				build_anthill(t_list *input_lines, t_anthill *anthill);
+void			build_roomlist(t_list *input_lines, t_anthill *anthill);
+void			build_adjlist(t_list *input_lines, t_anthill *anthill);
 
-void    delete_roomlist(t_anthill *anthill);
-void    delete_adjlist(t_anthill *anthill);
-void    delete_inputlines(t_list **input_lines);
+void			delete_roomlist(t_anthill *anthill);
+void			delete_adjlist(t_anthill *anthill);
+void			delete_inputlines(t_list **input_lines);
 
-int		bfs(t_anthill *ah, t_search *info, t_route *ignore);
-int		solve(t_anthill *anthill);
-void    choose_routes(t_anthill *anthill, t_route **routes, int num_routes);
-void    print_turns(t_anthill *anthill, t_ant *ants);
-
-// FOR DEBUGGING
-# include <stdio.h>
-void    print_turns(t_anthill *anthill, t_ant *ants);
-// END DEBUGGING
-
+int				bfs(t_anthill *ah, t_search *info, t_route *ignore);
+int				solve(t_anthill *anthill);
+void			choose_routes(t_anthill *anthill, t_route **routes,
+					int num_routes);
+void			print_turns(t_anthill *anthill, t_ant *ants);
 #endif
