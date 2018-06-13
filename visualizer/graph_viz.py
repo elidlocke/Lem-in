@@ -1,12 +1,12 @@
-# libraries
+import argparse
+import matplotlib.pyplot as plt
 import numpy as np
 import networkx as nx
-import matplotlib.pyplot as plt
 import os
-from matplotlib.animation import FuncAnimation
-import argparse
-from read_input import parse
+
 from ant import Ant
+from matplotlib.animation import FuncAnimation
+from read_input import parse
 
 # Colors
 bg_color = '#111111'

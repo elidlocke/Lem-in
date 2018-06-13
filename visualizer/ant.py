@@ -6,14 +6,14 @@
 #    By: enennige <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 13:52:11 by enennige          #+#    #+#              #
-#    Updated: 2018/06/12 19:57:40 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/12 21:56:35 by jpollore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import numpy as np
 
 
-class Ant:
+class Ant(object):
 
     def __init__(self, number, node_path=None,
                  journey=None, color='g.'):
