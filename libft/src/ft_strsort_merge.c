@@ -6,40 +6,37 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 13:59:25 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 11:36:32 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/12 21:28:52 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 static void	merge(char **str, int start, int mid, int end)
 {
 	int		i_copy;
-	int		i_left;
-	int		i_right;
+	int		i_side[2];
 	char	**copy;
-	
+
 	if (!(copy = (char **)malloc(sizeof(char *) * (end - start + 1))))
 		return ;
 	i_copy = 0;
-	i_left = start;
-	i_right = mid + 1;
-	while (i_left <= mid && i_right <= end)
+	i_side[0] = start;
+	i_side[1] = mid + 1;
+	while (i_side[0] <= mid && i_side[1] <= end)
 	{
-		if(ft_strcmp(str[i_right], str[i_left]) > 0)
-			copy[i_copy++] = str[i_left++];
+		if (ft_strcmp(str[i_side[1]], str[i_side[0]]) > 0)
+			copy[i_copy++] = str[i_side[0]++];
 		else
-			copy[i_copy++] = str[i_right++];
+			copy[i_copy++] = str[i_side[1]++];
 	}
-	while (i_left <= mid)
-		copy[i_copy++] = str[i_left++];
-	while (i_right <= end)
-		copy[i_copy++] = str[i_right++];
-	i_copy = 0;
-	while (i_copy < (end - start + 1))
-	{
+	while (i_side[0] <= mid)
+		copy[i_copy++] = str[i_side[0]++];
+	while (i_side[1] <= end)
+		copy[i_copy++] = str[i_side[1]++];
+	i_copy = -1;
+	while (++i_copy < (end - start + 1))
 		str[start + i_copy] = copy[i_copy];
-		i_copy++;
-	}
 	if (copy)
 		free(copy);
 }
