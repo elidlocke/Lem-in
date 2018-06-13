@@ -6,12 +6,12 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/13 10:53:07 by enennige          #+#    #+#             */
-/*   Updated: 2018/05/13 11:37:18 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/12 21:42:42 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef FT_GETNEXTLINE_H
+# define FT_GETNEXTLINE_H
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/uio.h>
