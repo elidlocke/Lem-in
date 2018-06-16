@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:33:43 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/16 14:14:54 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 14:42:58 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void			delete_inputlines(t_list **input_lines);
 
 int				bfs(t_anthill *ah, t_search *info, t_route *ignore);
 int				solve(t_anthill *anthill);
+void			delete_key_from_adjlist(t_anthill *anthill, int key_from, int key_to);
 void			choose_routes(t_anthill *anthill, t_route **routes,
 					int num_routes);
 void			print_turns(t_anthill *anthill, t_ant *ants);

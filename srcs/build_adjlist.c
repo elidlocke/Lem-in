@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 17:01:05 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 17:16:41 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 14:42:15 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,35 @@ void	add_tunnels(t_list *input_lines, t_anthill *anthill)
 	node = ft_lstnew(&room_to, sizeof(room_to));
 	ft_lstaddend(&(anthill->adj_list)[room_from], node);
 }
+
+/*
+** Deletes a single child from the adjancency list
+*/
+void	delete_key_from_adjlist(t_anthill *anthill, int key_from, int key_to)
+{
+	t_list	*prev;
+	t_list	*node;
+	t_list	*next;
+
+	node = anthill->adj_list[key_from];
+	prev = NULL;
+	next = NULL;
+	while (node)
+	{
+		next = node->next;
+		if (*(int *)(node->content) == key_to)
+		{
+			free(node->content);
+			free(node);
+			if (prev)
+				prev->next = next;
+			return ;
+		}
+		prev = node;
+		node = next;
+	}
+}
+
 
 /*
 ** Deletes the array of linked lists representing the rooms and tunnels in
