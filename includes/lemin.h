@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:33:43 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/12 21:14:47 by jpollore         ###   ########.fr       */
+/*   Updated: 2018/06/16 14:14:54 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,12 @@ int				solve(t_anthill *anthill);
 void			choose_routes(t_anthill *anthill, t_route **routes,
 					int num_routes);
 void			print_turns(t_anthill *anthill, t_ant *ants);
+
+// DEBUGGING PRINT FUNCTIONS //
+void    print_roomlist(t_anthill anthill);
+void    print_nodelist(t_anthill anthill);
+void    print_route(t_anthill *anthill, t_route *route);
+void    print_path(t_anthill *anthill, int *path);
+// END DEBUGGING PRINT FUNCTIONS //
+
 #endif

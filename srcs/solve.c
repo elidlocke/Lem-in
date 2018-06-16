@@ -6,7 +6,7 @@
 /*   By: jpollore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 14:11:17 by jpollore          #+#    #+#             */
-/*   Updated: 2018/06/16 10:02:56 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 14:20:37 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ int				solve(t_anthill *anthill)
 
 	iter = 0;
 	routes = search(anthill, &iter);
+	// TODO: REMOVE DEBUGGING PRINT STATEMENT
+	int i = 0;
+	while (i < iter)
+		print_route(anthill, routes[i++]);
+	// END
 	if (iter > 0)
 		choose_routes(anthill, routes, iter);
 	free_routes(routes, iter);
