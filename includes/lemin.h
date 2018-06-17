@@ -80,11 +80,15 @@ void				delete_adjlist(t_anthill *anthill);
 void				delete_inputlines(t_list **input_lines);
 
 int					bfs(t_anthill *ah, t_search *info, t_route *ignore);
-int					solve(t_anthill *anthill);
+int					discover_routes(t_anthill *anthill);
 void				delete_key_from_adjlist(t_anthill *anthill,
 											int key_from, int key_to);
 t_ant				*choose_routes(t_anthill *anthill, t_route **routes,
 									int num_routes);
 void				choose_best_route_combo(t_anthill *anthill, t_set *set);
 void				print_turns(t_anthill *anthill, t_ant *ants);
+t_route				*create_route(int path_cost);
+void				free_routes(t_route **arr, int size);
+void				free_set(t_set *set);
+t_set				*create_route_set(t_route **routes, int size);
 #endif
