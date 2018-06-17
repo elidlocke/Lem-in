@@ -24,7 +24,7 @@ int		main(void)
 		{
 			//TODO: REMOVE DEBUGGING PRINT STATEMENT
 			//delete_key_from_adjlist(&anthill, 0, 1);
-			print_nodelist(anthill);
+			/* print_nodelist(anthill); */
 			// END
 			if (!(solve(&anthill)))
 				ft_putstr("ERROR\n");

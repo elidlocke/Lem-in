@@ -13,14 +13,12 @@ end 0 0
 # shortest path
 start-r1
 r1-r2
-r2-end
 # second path
 start-r3
 r3-r4
 r4-r2
 r2-end
 # third path
-start-r1
 r1-r5
 r5-r6
 r6-end

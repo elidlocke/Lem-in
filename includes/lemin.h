@@ -41,6 +41,13 @@ typedef struct	s_route
 	int			num_ants;
 }				t_route;
 
+typedef struct 	s_set
+{
+	t_route			**routes;
+	int			size;
+	struct s_set		*next;
+}		t_set;
+
 typedef struct	s_search
 {
 	int			*pred;

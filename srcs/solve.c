@@ -51,6 +51,23 @@ static int		search_iter(t_anthill *anthill, t_route **route,
 	return (1);
 }
 
+static void	reverse_adj_paths(t_anthill *ah, t_route *route)
+{
+	int i;
+	t_list	*parent;
+
+	i = route->cost;
+	while (i >= 0)
+	{
+		if (route->path[i] != ah->end_idx)
+		{
+			parent = ah->adj_list[route->path[i]];
+			delete_key_from_adjlist(ah, *(int *)parent->content, route->path[i+1]);
+		}
+		i--;
+	}
+}
+
 static t_route	**search(t_anthill *anthill, int *iter)
 {
 	t_search	info;
@@ -93,20 +110,86 @@ void			free_routes(t_route **arr, int size)
 	arr = NULL;
 }
 
+/* void	resolve_conflicts(t_anthill *anthill, t_set *head, int num_routes) */
+/* { */
+/* 	t_route	*c_r; */
+/* 	t_set	*set; */
+/* 	t_set	*app_head; */
+/* 	t_set	*app_ptr; */
+/* 	int	r; */
+/* 	int	k; */
+/* 	int	key; */
+
+/* 	set = head; */
+/* 	while (set) */
+/* 	{ */
+/* 		r = 0; */
+/* 		while (r < set->size) */
+/* 		{ */
+/* 			c_r = set->routes[r]; */
+/* 			k = 0; */
+/* 			while (k < c_r->cost) */
+/* 			{ */
+/* 				k++; */
+/* 			} */
+/* 			r++; */
+/* 		} */
+/* 	} */
+/* } */
+
+t_set	*create_route_set(t_route **routes, int size)
+{
+	t_set *set;
+
+	if ((set = (t_set *)ft_memalloc(sizeof(*set))))
+	{
+		set->routes = routes;
+		set->size = size;
+		set->next = NULL;
+	}
+	return (set);
+}
+
+#include <stdio.h>
 int				solve(t_anthill *anthill)
 {
-	int		iter;
 	t_route **routes;
+	t_set	*head;
+	t_set	*set;
+	int	iter;
+	int	num_routes;
+	int	i;
 
 	iter = 0;
-	routes = search(anthill, &iter);
-	// TODO: REMOVE DEBUGGING PRINT STATEMENT
-	int i = 0;
-	while (i < iter)
-		print_route(anthill, routes[i++]);
-	// END
-	if (iter > 0)
-		choose_routes(anthill, routes, iter);
-	free_routes(routes, iter);
-	return (!iter ? 0 : 1);
+	num_routes = 0;
+	while ((routes = search(anthill, &iter)) && iter)
+	{
+		/* TODO: REMOVE DEBUGGING PRINT STATEMENT */
+		i = 0;
+		while (i < iter)
+			print_route(anthill, routes[i++]);
+		printf("\n\n");
+		/* END */
+
+		if (!num_routes)
+		{
+			set = create_route_set(routes, iter);
+			head = set;
+		}
+		else
+		{
+			set->next = create_route_set(routes, iter);
+			set = set->next;
+		}
+		i = 0;
+		while (i < iter)
+			reverse_adj_paths(anthill, routes[i++]);
+		num_routes++;
+		iter = 0;
+	}
+	/* resolve_conflicts(anthill, head, num_routes); */
+	if (num_routes)
+		choose_routes(anthill, head->routes, head->size);
+	/* free_routes(routes, iter); */
+	return (!num_routes ? 0 : 1);
 }
