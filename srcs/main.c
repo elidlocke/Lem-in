@@ -22,7 +22,7 @@ int		main(void)
 	{
 		if (build_anthill(input_lines, &anthill) != -1)
 		{
-			if (!(solve(&anthill)))
+			if (!(discover_routes(&anthill)))
 				ft_putstr("ERROR\n");
 			delete_inputlines(&input_lines);
 			delete_roomlist(&anthill);

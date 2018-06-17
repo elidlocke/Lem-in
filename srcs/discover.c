@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solve.c                                            :+:      :+:    :+:   */
+/*   discover.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpollore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/09 14:11:17 by jpollore          #+#    #+#             */
-/*   Updated: 2018/06/16 20:11:19 by enennige         ###   ########.fr       */
+/*   Created: 2018/06/16 20:50:45 by jpollore          #+#    #+#             */
+/*   Updated: 2018/06/16 20:55:22 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-t_route	*create_route(int path_cost)
-{
-	t_route *route;
-
-	if ((route = (t_route *)ft_memalloc(sizeof(*route))))
-	{
-		route->cost = path_cost;
-		route->path = (int *)ft_memalloc(sizeof(int) * path_cost + 1);
-	}
-	return (route);
-}
-
-int		search_iter(t_anthill *anthill, t_route **route,
+static int		search_iter(t_anthill *anthill, t_route **route,
 							t_search *info, t_route *ignore)
 {
 	int	i;
@@ -51,7 +39,7 @@ int		search_iter(t_anthill *anthill, t_route **route,
 	return (1);
 }
 
-void		reverse_adj_paths(t_anthill *ah, t_route *route)
+static void		reverse_adj_paths(t_anthill *ah, t_route *route)
 {
 	int		i;
 	t_list	*parent;
@@ -69,7 +57,7 @@ void		reverse_adj_paths(t_anthill *ah, t_route *route)
 	}
 }
 
-t_route	**search(t_anthill *anthill, int *iter)
+static t_route	**search(t_anthill *anthill, int *iter)
 {
 	t_search	info;
 	t_route		**routes;
@@ -94,64 +82,22 @@ t_route	**search(t_anthill *anthill, int *iter)
 	return (routes);
 }
 
-void			free_routes(t_route **arr, int size)
+static	void	reverse_routes(t_anthill *anthill, t_route **routes, int iter)
 {
 	int i;
 
-	if (!size)
-	{
-		free(arr);
-		arr = NULL;
-		return ;
-	}
 	i = 0;
-	while (i < size)
-	{
-		free(arr[i]->path);
-		free(arr[i]);
-		arr[i] = NULL;
-		i++;
-	}
-	free(arr);
-	arr = NULL;
+	while (i < iter)
+		reverse_adj_paths(anthill, routes[i++]);
 }
 
-void			free_set(t_set *set)
-{
-	t_set *tmp;
-
-	while (set)
-	{
-		free_routes(set->routes, set->size);
-		tmp = set;
-		set = set->next;
-		free(tmp);
-	}
-	free(set);
-	set = NULL;
-}
-
-t_set			*create_route_set(t_route **routes, int size)
-{
-	t_set *set;
-
-	if ((set = (t_set *)ft_memalloc(sizeof(*set))))
-	{
-		set->routes = routes;
-		set->size = size;
-		set->next = NULL;
-	}
-	return (set);
-}
-
-int				solve(t_anthill *anthill)
+int				discover_routes(t_anthill *anthill)
 {
 	t_route	**routes;
 	t_set	*head;
 	t_set	*set;
 	int		iter;
 	int		num_routes;
-	int		i;
 
 	iter = 0;
 	num_routes = 0;
@@ -159,23 +105,14 @@ int				solve(t_anthill *anthill)
 	routes = NULL;
 	while ((routes = search(anthill, &iter)) && iter)
 	{
-		if (!num_routes)
-		{
-			head = create_route_set(routes, iter);
+		if (!num_routes && (head = create_route_set(routes, iter)))
 			set = head;
-		}
-		else
-		{
-			set->next = create_route_set(routes, iter);
+		else if ((set->next = create_route_set(routes, iter)))
 			set = set->next;
-		}
-		i = 0;
-		while (i < iter)
-			reverse_adj_paths(anthill, routes[i++]);
+		reverse_routes(anthill, routes, iter);
 		num_routes++;
 		iter = 0;
 	}
-	// resolve_conflicts(anthill, head, num_routes);
 	if (num_routes)
 		choose_best_route_combo(anthill, head);
 	free_set(head);
