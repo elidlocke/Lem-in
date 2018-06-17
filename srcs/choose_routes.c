@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 13:41:36 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/16 21:25:32 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 21:58:36 by jpollore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int		get_shortest_route_index(t_route **routes, int num_routes)
 ** ant holds the last turn / total number of turns.
 */
 
-t_ant		*choose_routes(t_anthill *anthill, t_route **routes,
+t_ant			*choose_routes(t_anthill *anthill, t_route **routes,
 								int num_routes)
 {
 	int		i;
