@@ -82,6 +82,15 @@ static t_route	**search(t_anthill *anthill, int *iter)
 	return (routes);
 }
 
+static	void	reverse_routes(t_anthill *anthill, t_route **routes, int iter)
+{
+	int i;
+
+	i = 0;
+	while (i < iter)
+		reverse_adj_paths(anthill, routes[i++]);
+}
+
 int				discover_routes(t_anthill *anthill)
 {
 	t_route	**routes;
@@ -89,7 +98,6 @@ int				discover_routes(t_anthill *anthill)
 	t_set	*set;
 	int		iter;
 	int		num_routes;
-	int		i;
 
 	iter = 0;
 	num_routes = 0;
@@ -97,19 +105,11 @@ int				discover_routes(t_anthill *anthill)
 	routes = NULL;
 	while ((routes = search(anthill, &iter)) && iter)
 	{
-		if (!num_routes)
-		{
-			head = create_route_set(routes, iter);
+		if (!num_routes && (head = create_route_set(routes, iter)))
 			set = head;
-		}
-		else
-		{
-			set->next = create_route_set(routes, iter);
+		else if ((set->next = create_route_set(routes, iter)))
 			set = set->next;
-		}
-		i = 0;
-		while (i < iter)
-			reverse_adj_paths(anthill, routes[i++]);
+		reverse_routes(anthill, routes, iter);
 		num_routes++;
 		iter = 0;
 	}
