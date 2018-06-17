@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 17:01:05 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/16 19:16:34 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 21:32:20 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** rooms
 */
 
-void	create_adjlist(t_anthill *anthill)
+static void		create_adjlist(t_anthill *anthill)
 {
 	int		i;
 	t_list	*node;
@@ -40,7 +40,7 @@ void	create_adjlist(t_anthill *anthill)
 ** representation.
 */
 
-void	add_tunnels(t_list *input_lines, t_anthill *anthill)
+static void		add_tunnels(t_list *input_lines, t_anthill *anthill)
 {
 	char	**room_names;
 	int		room_from;
@@ -68,7 +68,8 @@ void	add_tunnels(t_list *input_lines, t_anthill *anthill)
 ** Deletes a single child from the adjancency list
 */
 
-void	delete_key_from_adjlist(t_anthill *anthill, int key_from, int key_to)
+void			delete_key_from_adjlist(t_anthill *anthill,
+										int key_from, int key_to)
 {
 	t_list	*prev;
 	t_list	*node;
@@ -98,7 +99,7 @@ void	delete_key_from_adjlist(t_anthill *anthill, int key_from, int key_to)
 ** the anthill
 */
 
-void	delete_adjlist(t_anthill *anthill)
+void			delete_adjlist(t_anthill *anthill)
 {
 	int		i;
 	t_list	*node;
@@ -124,7 +125,7 @@ void	delete_adjlist(t_anthill *anthill)
 ** the anthill
 */
 
-void	build_adjlist(t_list *input_lines, t_anthill *anthill)
+void			build_adjlist(t_list *input_lines, t_anthill *anthill)
 {
 	char	*line;
 

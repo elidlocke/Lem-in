@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 13:41:36 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/16 19:55:17 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 21:25:32 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Init all the routes to have zero ants on them
 */
 
-void	init_ants_on_route(t_route **routes, int num_routes)
+static void		init_ants_on_route(t_route **routes, int num_routes)
 {
 	int i;
 
@@ -34,7 +34,7 @@ void	init_ants_on_route(t_route **routes, int num_routes)
 ** route, plus the number of ants already on that route.
 */
 
-int		get_shortest_route_index(t_route **routes, int num_routes)
+static int		get_shortest_route_index(t_route **routes, int num_routes)
 {
 	int	i;
 	int	real_path_cost;
@@ -60,7 +60,8 @@ int		get_shortest_route_index(t_route **routes, int num_routes)
 ** ant holds the last turn / total number of turns.
 */
 
-t_ant	*choose_routes(t_anthill *anthill, t_route **routes, int num_routes)
+t_ant		*choose_routes(t_anthill *anthill, t_route **routes,
+								int num_routes)
 {
 	int		i;
 	int		route_idx;
@@ -86,7 +87,7 @@ t_ant	*choose_routes(t_anthill *anthill, t_route **routes, int num_routes)
 ** print the ants in the best route combination
 */
 
-void	choose_best_route_combo(t_anthill *anthill, t_set *set)
+void			choose_best_route_combo(t_anthill *anthill, t_set *set)
 {
 	t_ant	*current_ants;
 	t_ant	*best_ants;

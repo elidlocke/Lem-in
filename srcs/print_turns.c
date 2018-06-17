@@ -6,34 +6,26 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 20:34:48 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/12 21:11:32 by jpollore         ###   ########.fr       */
+/*   Updated: 2018/06/16 21:22:36 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
 /*
-** Set an ants first turn to 1, so that the turn has a value that can be
-** incremented
-*/
-
-void	init_ant_turn(t_ant *ant)
-{
-	ant->current_turn = 1;
-}
-
-/*
 ** Init the current ants to their first turn
 */
 
-void	init_current_ant_turn(t_ant *ants, int num_ants)
+static void		init_current_ant_turn(t_ant *ants, int num_ants)
 {
-	int i;
+	int		i;
+	t_ant	*ant;
 
 	i = 0;
 	while (i < num_ants)
 	{
-		init_ant_turn(&(ants[i]));
+		ant = &(ants[i]);
+		ant->current_turn = 1;
 		i++;
 	}
 }
@@ -42,7 +34,7 @@ void	init_current_ant_turn(t_ant *ants, int num_ants)
 ** Increment the ant's state for a given turn
 */
 
-void	increment_ant_turn(t_ant *ant)
+static void		increment_ant_turn(t_ant *ant)
 {
 	if (ant->wait > 0)
 		ant->wait = ant->wait - 1;
@@ -51,10 +43,10 @@ void	increment_ant_turn(t_ant *ant)
 }
 
 /*
-** print a single turn taken by the ants
+** Print a single turn taken by the ants
 */
 
-void	print_a_turn(t_anthill *anthill, t_ant *ants)
+static void		print_a_turn(t_anthill *anthill, t_ant *ants)
 {
 	int i;
 	int room_index;
@@ -83,7 +75,7 @@ void	print_a_turn(t_anthill *anthill, t_ant *ants)
 ** to get the ants from start to finish
 */
 
-void	print_turns(t_anthill *anthill, t_ant *ants)
+void			print_turns(t_anthill *anthill, t_ant *ants)
 {
 	int	turn;
 	int	max_turns;

@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 16:58:31 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 20:27:54 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 20:58:36 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** based on the data from the text line passed in
 */
 
-t_room	*new_room(char *line, int index)
+static t_room	*new_room(char *line, int index)
 {
 	t_room	*room;
 	int		word_len;
@@ -38,7 +38,7 @@ t_room	*new_room(char *line, int index)
 ** Frees & deletes all the rooms in a list of rooms
 */
 
-void	delete_roomlist(t_anthill *anthill)
+void			delete_roomlist(t_anthill *anthill)
 {
 	int		i;
 	t_room	*room;
@@ -65,7 +65,7 @@ void	delete_roomlist(t_anthill *anthill)
 ** in the list. Returns 1 if valid, 0 if duplicates are found.
 */
 
-int		is_valid_roomlist(char **room_names, int num_rooms)
+static int		is_valid_roomlist(char **room_names, int num_rooms)
 {
 	int	i;
 
@@ -85,7 +85,8 @@ int		is_valid_roomlist(char **room_names, int num_rooms)
 ** right information back into the anthill struct
 */
 
-void	set_room_data(t_anthill *anthill, char **room_names, t_room **rooms)
+static void		set_room_data(t_anthill *anthill, char **room_names,
+							t_room **rooms)
 {
 	room_names[anthill->num_rooms] = NULL;
 	if (!(is_valid_roomlist(room_names, anthill->num_rooms)))
@@ -98,7 +99,7 @@ void	set_room_data(t_anthill *anthill, char **room_names, t_room **rooms)
 ** Builds out a list of rooms and saves them into the anthill
 */
 
-void	build_roomlist(t_list *input_lines, t_anthill *anthill)
+void			build_roomlist(t_list *input_lines, t_anthill *anthill)
 {
 	t_room	**rooms;
 	char	**room_names;
