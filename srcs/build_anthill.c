@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 09:40:52 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 19:46:30 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 21:33:26 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** pointer to the next line.
 */
 
-void	set_num_ants(t_list *input_lines, t_anthill *anthill)
+static void	set_num_ants(t_list *input_lines, t_anthill *anthill)
 {
 	char	*line;
 	int		num_ants;
@@ -39,7 +39,7 @@ void	set_num_ants(t_list *input_lines, t_anthill *anthill)
 ** room input lines
 */
 
-void	set_indices(t_list *input_lines, t_anthill *anthill)
+static void	set_indices(t_list *input_lines, t_anthill *anthill)
 {
 	char	*line;
 	t_list	*current_node;
@@ -69,7 +69,7 @@ void	set_indices(t_list *input_lines, t_anthill *anthill)
 ** Set the default values for the anthill struct
 */
 
-void	init_anthill_defaults(t_anthill *anthill)
+static void	init_anthill_defaults(t_anthill *anthill)
 {
 	anthill->num_ants = 0;
 	anthill->start_idx = -1;
@@ -85,7 +85,7 @@ void	init_anthill_defaults(t_anthill *anthill)
 ** Check if the int values have been set for the anthill
 */
 
-void	validate_anthill(t_anthill *anthill)
+static void	validate_anthill(t_anthill *anthill)
 {
 	if (anthill->num_ants < 1)
 		anthill->is_valid = 0;
@@ -103,7 +103,7 @@ void	validate_anthill(t_anthill *anthill)
 ** Build the anthill struct. Returns -1 if an error has occured
 */
 
-int		build_anthill(t_list *input_lines, t_anthill *anthill)
+int			build_anthill(t_list *input_lines, t_anthill *anthill)
 {
 	init_anthill_defaults(anthill);
 	set_num_ants(input_lines, anthill);

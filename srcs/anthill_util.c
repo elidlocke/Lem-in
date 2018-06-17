@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   anthill_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/07 19:42:46 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/16 19:34:27 by enennige         ###   ########.fr       */
+/*   Created: 2018/06/16 19:15:02 by enennige          #+#    #+#             */
+/*   Updated: 2018/06/16 19:17:54 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int		main(void)
-{
-	t_list		*input_lines;
-	t_anthill	anthill;
+/*
+** Iterates through all of the rooms until it finds a room name that matches
+** the input string, then returns the index of the matching room name. Returns
+** -1 on error.
+*/
 
-	if ((input_lines = read_input()) &&
-			validate_input_lines(input_lines) != -1)
+int	lookup_room_index(char *name, t_anthill *anthill)
+{
+	int		i;
+	char	*current_name;
+
+	i = 0;
+	while (i < anthill->num_rooms)
 	{
-		if (build_anthill(input_lines, &anthill) != -1)
-		{
-			if (!(discover_routes(&anthill)))
-				ft_putstr("ERROR\n");
-			delete_inputlines(&input_lines);
-			delete_roomlist(&anthill);
-			delete_adjlist(&anthill);
-			return (0);
-		}
+		current_name = (anthill->rooms[i]->name);
+		if (ft_strcmp(name, current_name) == 0)
+			return (i);
+		i++;
 	}
-	ft_putstr("ERROR\n");
 	return (-1);
 }

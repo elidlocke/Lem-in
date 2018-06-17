@@ -6,40 +6,18 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 17:01:05 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/09 17:16:41 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 21:32:20 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
 /*
-** Iterates through all of the rooms until it finds a room name that matches
-** the input string, then returns the index of the matching room name. Returns
-** -1 on error.
-*/
-
-int		lookup_room_index(char *name, t_anthill *anthill)
-{
-	int		i;
-	char	*current_name;
-
-	i = 0;
-	while (i < anthill->num_rooms)
-	{
-		current_name = (anthill->rooms[i]->name);
-		if (ft_strcmp(name, current_name) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-/*
 ** Creates an array of linked list nodes, representing the indices of the
 ** rooms
 */
 
-void	create_adjlist(t_anthill *anthill)
+static void		create_adjlist(t_anthill *anthill)
 {
 	int		i;
 	t_list	*node;
@@ -62,7 +40,7 @@ void	create_adjlist(t_anthill *anthill)
 ** representation.
 */
 
-void	add_tunnels(t_list *input_lines, t_anthill *anthill)
+static void		add_tunnels(t_list *input_lines, t_anthill *anthill)
 {
 	char	**room_names;
 	int		room_from;
@@ -87,11 +65,41 @@ void	add_tunnels(t_list *input_lines, t_anthill *anthill)
 }
 
 /*
+** Deletes a single child from the adjancency list
+*/
+
+void			delete_key_from_adjlist(t_anthill *anthill,
+										int key_from, int key_to)
+{
+	t_list	*prev;
+	t_list	*node;
+	t_list	*next;
+
+	node = anthill->adj_list[key_from];
+	prev = NULL;
+	next = NULL;
+	while (node)
+	{
+		next = node->next;
+		if (*(int *)(node->content) == key_to)
+		{
+			free(node->content);
+			free(node);
+			if (prev)
+				prev->next = next;
+			return ;
+		}
+		prev = node;
+		node = next;
+	}
+}
+
+/*
 ** Deletes the array of linked lists representing the rooms and tunnels in
 ** the anthill
 */
 
-void	delete_adjlist(t_anthill *anthill)
+void			delete_adjlist(t_anthill *anthill)
 {
 	int		i;
 	t_list	*node;
@@ -117,7 +125,7 @@ void	delete_adjlist(t_anthill *anthill)
 ** the anthill
 */
 
-void	build_adjlist(t_list *input_lines, t_anthill *anthill)
+void			build_adjlist(t_list *input_lines, t_anthill *anthill)
 {
 	char	*line;
 

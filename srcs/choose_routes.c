@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 13:41:36 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/10 11:41:35 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 21:25:32 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Init all the routes to have zero ants on them
 */
 
-void	init_ants_on_route(t_route **routes, int num_routes)
+static void		init_ants_on_route(t_route **routes, int num_routes)
 {
 	int i;
 
@@ -34,7 +34,7 @@ void	init_ants_on_route(t_route **routes, int num_routes)
 ** route, plus the number of ants already on that route.
 */
 
-int		get_shortest_route_index(t_route **routes, int num_routes)
+static int		get_shortest_route_index(t_route **routes, int num_routes)
 {
 	int	i;
 	int	real_path_cost;
@@ -55,15 +55,19 @@ int		get_shortest_route_index(t_route **routes, int num_routes)
 }
 
 /*
-** Loop through all the ants and find the optimal route for each ant
+** Loop through all the ants in a given set of non-conflicting paths and
+** find the optimal route for each ant. Return a list of ants, where the last
+** ant holds the last turn / total number of turns.
 */
 
-void	choose_routes(t_anthill *anthill, t_route **routes, int num_routes)
+t_ant		*choose_routes(t_anthill *anthill, t_route **routes,
+								int num_routes)
 {
 	int		i;
 	int		route_idx;
-	t_ant	ants[anthill->num_ants];
+	t_ant	*ants;
 
+	ants = (t_ant *)malloc(sizeof(t_ant) * anthill->num_ants);
 	i = 0;
 	init_ants_on_route(routes, num_routes);
 	while (i < anthill->num_ants)
@@ -75,5 +79,39 @@ void	choose_routes(t_anthill *anthill, t_route **routes, int num_routes)
 		ants[i].turns_taken = routes[route_idx]->cost + ants[i].wait;
 		i++;
 	}
-	print_turns(anthill, ants);
+	return (ants);
+}
+
+/*
+** Given a set of possible route combos, get the best combination of routes and
+** print the ants in the best route combination
+*/
+
+void			choose_best_route_combo(t_anthill *anthill, t_set *set)
+{
+	t_ant	*current_ants;
+	t_ant	*best_ants;
+	int		current_turns;
+
+	best_ants = NULL;
+	while (set)
+	{
+		current_ants = choose_routes(anthill, set->routes, set->size);
+		current_turns = current_ants[anthill->num_ants - 1].turns_taken;
+		if (!best_ants)
+			best_ants = current_ants;
+		else
+		{
+			if (current_turns < best_ants[anthill->num_ants - 1].turns_taken)
+			{
+				free(best_ants);
+				best_ants = current_ants;
+			}
+			else
+				free(current_ants);
+		}
+		set = set->next;
+	}
+	print_turns(anthill, best_ants);
+	free(best_ants);
 }
