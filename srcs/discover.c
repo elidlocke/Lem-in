@@ -6,7 +6,7 @@
 /*   By: jpollore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 20:50:45 by jpollore          #+#    #+#             */
-/*   Updated: 2018/06/16 20:55:22 by jpollore         ###   ########.fr       */
+/*   Updated: 2018/06/16 22:41:27 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static	void	reverse_routes(t_anthill *anthill, t_route **routes, int iter)
 		reverse_adj_paths(anthill, routes[i++]);
 }
 
-int				discover_routes(t_anthill *anthill)
+int				discover_routes(t_anthill *anthill, t_list *input_lines)
 {
 	t_route	**routes;
 	t_set	*head;
@@ -114,7 +114,7 @@ int				discover_routes(t_anthill *anthill)
 		iter = 0;
 	}
 	if (num_routes)
-		choose_best_route_combo(anthill, head);
+		choose_best_route_combo(anthill, head, input_lines);
 	free_set(head);
 	return (!num_routes ? 0 : 1);
 }

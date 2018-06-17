@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 13:41:36 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/16 21:58:36 by jpollore         ###   ########.fr       */
+/*   Updated: 2018/06/16 22:50:10 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,22 +87,22 @@ t_ant			*choose_routes(t_anthill *anthill, t_route **routes,
 ** print the ants in the best route combination
 */
 
-void			choose_best_route_combo(t_anthill *anthill, t_set *set)
+void			choose_best_route_combo(t_anthill *anthill, t_set *set,
+										t_list *input_lines)
 {
 	t_ant	*current_ants;
 	t_ant	*best_ants;
-	int		current_turns;
 
 	best_ants = NULL;
 	while (set)
 	{
 		current_ants = choose_routes(anthill, set->routes, set->size);
-		current_turns = current_ants[anthill->num_ants - 1].turns_taken;
 		if (!best_ants)
 			best_ants = current_ants;
 		else
 		{
-			if (current_turns < best_ants[anthill->num_ants - 1].turns_taken)
+			if (current_ants[anthill->num_ants - 1].turns_taken <
+				best_ants[anthill->num_ants - 1].turns_taken)
 			{
 				free(best_ants);
 				best_ants = current_ants;
@@ -112,6 +112,7 @@ void			choose_best_route_combo(t_anthill *anthill, t_set *set)
 		}
 		set = set->next;
 	}
+	ft_printlst(input_lines);
 	print_turns(anthill, best_ants);
 	free(best_ants);
 }

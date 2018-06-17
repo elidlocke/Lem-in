@@ -6,7 +6,7 @@
 /*   By: enennige <enennige@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 10:35:19 by enennige          #+#    #+#             */
-/*   Updated: 2018/03/01 20:18:36 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 22:48:58 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	ft_printlst(t_list *list)
 		ft_putchar('\n');
 		list = list->next;
 	}
+	ft_putchar('\n');
 }
