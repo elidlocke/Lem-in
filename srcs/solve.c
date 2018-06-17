@@ -6,7 +6,7 @@
 /*   By: jpollore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 14:11:17 by jpollore          #+#    #+#             */
-/*   Updated: 2018/06/16 14:20:37 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 17:28:45 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ int				solve(t_anthill *anthill)
 	}
 	/* resolve_conflicts(anthill, head, num_routes); */
 	if (num_routes)
-		choose_routes(anthill, head->routes, head->size);
+		choose_best_route_combo(anthill, head);
 	/* free_routes(routes, iter); */
 	return (!num_routes ? 0 : 1);
 }

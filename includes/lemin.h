@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 15:33:43 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/16 14:42:58 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 17:15:37 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,6 @@ typedef struct	s_route
 	int			num_ants;
 }				t_route;
 
-typedef struct 	s_set
-{
-	t_route			**routes;
-	int			size;
-	struct s_set		*next;
-}		t_set;
-
 typedef struct	s_search
 {
 	int			*pred;
@@ -61,6 +54,13 @@ typedef struct	s_ant
 	int			turns_taken;
 	int			current_turn;
 }				t_ant;
+
+typedef struct		s_set
+{
+	t_route			**routes;
+	int				size;
+	struct s_set	*next;
+}					t_set;
 
 t_list			*read_input(void);
 
@@ -81,8 +81,8 @@ void			delete_inputlines(t_list **input_lines);
 int				bfs(t_anthill *ah, t_search *info, t_route *ignore);
 int				solve(t_anthill *anthill);
 void			delete_key_from_adjlist(t_anthill *anthill, int key_from, int key_to);
-void			choose_routes(t_anthill *anthill, t_route **routes,
-					int num_routes);
+t_ant			*choose_routes(t_anthill *anthill, t_route **routes, int num_routes);
+void			choose_best_route_combo(t_anthill *anthill, t_set *set);
 void			print_turns(t_anthill *anthill, t_ant *ants);
 
 // DEBUGGING PRINT FUNCTIONS //
