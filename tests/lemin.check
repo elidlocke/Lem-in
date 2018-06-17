@@ -1,5 +1,0 @@
-#include "lemin.h"
-
-#test check_abc
-        printf("CHECKING ABC ...");
-        ck_assert_str_eq("abc","abc");
