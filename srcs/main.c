@@ -6,7 +6,7 @@
 /*   By: enennige <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 19:42:46 by enennige          #+#    #+#             */
-/*   Updated: 2018/06/16 14:44:10 by enennige         ###   ########.fr       */
+/*   Updated: 2018/06/16 19:34:27 by enennige         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,12 @@ int		main(void)
 	{
 		if (build_anthill(input_lines, &anthill) != -1)
 		{
-			//TODO: REMOVE DEBUGGING PRINT STATEMENT
-			//delete_key_from_adjlist(&anthill, 0, 1);
-			/* print_nodelist(anthill); */
-			// END
 			if (!(solve(&anthill)))
 				ft_putstr("ERROR\n");
 			delete_inputlines(&input_lines);
 			delete_roomlist(&anthill);
 			delete_adjlist(&anthill);
+			sleep(20);
 			return (0);
 		}
 	}
