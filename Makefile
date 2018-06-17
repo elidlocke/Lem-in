@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = clang
 NAME = lemin
 CFLAGS = -Wall -Wextra -Werror
 SRC_PATH = srcs/

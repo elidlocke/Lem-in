@@ -86,6 +86,11 @@ t_route	**search(t_anthill *anthill, int *iter)
 	free(info.pred);
 	free(info.dist);
 	free(ignore.path);
+	if (!(*iter))
+	{
+		free(routes);
+		routes = NULL;
+	}
 	return (routes);
 }
 
@@ -148,27 +153,22 @@ int				solve(t_anthill *anthill)
 	int		num_routes;
 	int		i;
 
-	(void)set;
-	(void)iter;
-	(void)num_routes;
-	(void)head;
-	(void)i;
 	iter = 0;
 	num_routes = 0;
+	head = NULL;
+	routes = NULL;
 	while ((routes = search(anthill, &iter)) && iter)
 	{
 		if (!num_routes)
 		{
-			set = create_route_set(routes, iter);
-			head = set;
+			head = create_route_set(routes, iter);
+			set = head;
 		}
-		/*
 		else
 		{
 			set->next = create_route_set(routes, iter);
 			set = set->next;
 		}
-		*/
 		i = 0;
 		while (i < iter)
 			reverse_adj_paths(anthill, routes[i++]);
