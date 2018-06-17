@@ -6,12 +6,12 @@
 #    By: enennige <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/04 14:06:38 by enennige          #+#    #+#              #
-#    Updated: 2018/06/16 21:45:20 by enennige         ###   ########.fr        #
+#    Updated: 2018/06/16 22:22:27 by jpollore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-NAME = lemin
+NAME = lem-in
 CFLAGS = -Wall -Wextra -Werror
 SRC_PATH = srcs/
 SRC_NAME = main.c read_input.c build_anthill.c identify_linetype.c discover.c
