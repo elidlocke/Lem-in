@@ -43,8 +43,8 @@ pip3 install matplotlib
 
 ## Built With
 
-* Good old C
-* Python3 (for the visualizer)
+* Good old C - For the bfs-based algorithm to find the optimal paths
+* Python3 - For the visualizer
 * [NetworkX](https://networkx.github.io/) - Used to generate the nodes, connections and node placement in the visualizer
 * [Matplotlib](https://matplotlib.org/) - Plot the colorful dots representing the ants along the lines
 
