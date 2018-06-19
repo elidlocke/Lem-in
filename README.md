@@ -10,7 +10,7 @@ An example graph where three ants travel along a single path, taking a total of 
 An example graph where seventeen ants travel along four equidistant paths, taking a total of seven turns to reach the end node:
 ![4paths](img/4paths.gif)
 
-An example graph where ten ants travel along three paths of different lengths, taking a total of 6 turns to reach the end node:
+An example graph where ten ants travel along three paths of different lengths, taking a total of six turns to reach the end node:
 ![4paths](img/3paths.gif)
 
 
